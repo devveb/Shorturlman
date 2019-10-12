@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="keyword" content="wordslotmachine,word,slotmachine">
+    <title>Free Short URL,무료 단축 URL</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+            integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+            crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+
+<div id="randomize" style="width: 450px;height: 500px;margin-top: 20px;">
+    <div style="text-align: right;"><h4>Minimal ShortUrl Service</h4></div>
+    <div class="" style="text-align: center; width: 100%">
+        <!-- 				<h1>wordS a LOT!</h1> -->
+        <div class="abv">
+
+            <div style="width: 100%;">
+                <textarea class=" " id="ourl" rows="3" cols="15" style="width: 100%;" placeholder="URL here"></textarea>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div>
+
+            <button class="btn btn-secondary" type="button" style="width: 100%;" id="ranomizeButton" onclick="shrink()">
+                Make it short!
+            </button>
+            <input type="text" id="result2" style="width: 100%;"/>
+
+        </div>
+
+    </div>
+</div>
+</div>
+<div style="text-align: right;padding: 10px;bottom: 0;position: fixed;right: 0;">
+    <a href="http://sooreesan.github.io/" target="_blank">by tae.</a>
+</div>
+<script>
+    function shrink() {
+        $.get("/api/mkshrt", {orl: $("#ourl").val()}, function (result) {
+            $("#result2").val(result);
+            result.select();
+            document.execCommand("copy");
+            alert("Copied the text: " + result);
+        });
+    }
+
+</script>
+
+</body>
+</html>

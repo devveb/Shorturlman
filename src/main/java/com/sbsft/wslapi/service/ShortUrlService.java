@@ -25,11 +25,23 @@ public class ShortUrlService {
     @Transactional
     public String shrk(HttpServletRequest req) {
         ShortUrl su = new ShortUrl();
-        su.setOriginUrl(req.getParameter("orl"));
-        surlMapper.insertOriginUrl(su);
-        su.setShoutUrl(shrinkUrl(su.getIdx()));
-        surlMapper.updateShoutUrl(su);
-        return su.getShoutUrl();
+        String origin = req.getParameter("orl").trim();
+
+        if (origin.contains("http://mlnlmal.ml") ||origin.contains("mlnlmal.ml")||origin.equals("")){
+            return "Invalid URL입니다.";
+        }
+        su.setOriginUrl(origin);
+
+        if(surlMapper.cntOriginUrl(su) < 1){
+            surlMapper.insertOriginUrl(su);
+            su.setShoutUrl(shrinkUrl(su.getIdx()));
+            surlMapper.updateShoutUrl(su);
+            return su.getShoutUrl();
+        }else{
+            return surlMapper.getShortUrlByOriginUrl(su);
+        }
+
+
     }
 
     private String shrinkUrl(int idx){

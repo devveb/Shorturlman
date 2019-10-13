@@ -11,4 +11,9 @@ public interface ShortUrlMapper {
     void updateShoutUrl(ShortUrl su);
 
     String getOriginUrl(ShortUrl su);
+
+    int cntOriginUrl(ShortUrl su);
+
+
+    String getShortUrlByOriginUrl(ShortUrl su);
 }

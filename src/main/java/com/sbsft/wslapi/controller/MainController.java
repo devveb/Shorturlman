@@ -1,6 +1,5 @@
 package com.sbsft.wslapi.controller;
 
-import com.sbsft.wslapi.service.AppService;
 import com.sbsft.wslapi.service.ShortUrlService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,11 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 
 public class MainController {
 
-    private final AppService appService;
+
     private final ShortUrlService surlService;
 
-    public MainController(AppService appService, ShortUrlService surlService) {
-        this.appService = appService;
+    public MainController(ShortUrlService surlService) {
         this.surlService = surlService;
     }
 

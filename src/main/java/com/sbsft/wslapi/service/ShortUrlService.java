@@ -26,9 +26,14 @@ public class ShortUrlService {
     public String shrk(HttpServletRequest req) {
         ShortUrl su = new ShortUrl();
         String origin = req.getParameter("orl").trim();
+        su.setOriginUrl(origin);
+
+        if(!origin.startsWith("http://")&&!origin.startsWith("https://")){
+            return "can not find 'http://' or 'https://' 를 찾을수 없습니다.";
+        }
 
         if (origin.contains("http://mlnlmal.ml") ||origin.contains("mlnlmal.ml")||origin.equals("")){
-            return "Invalid URL입니다.";
+            return "'mlnlmal.ml'은 URL에 포함될 수 없습니다.";
         }
         su.setOriginUrl(origin);
 
@@ -43,6 +48,8 @@ public class ShortUrlService {
 
 
     }
+
+
 
     private String shrinkUrl(int idx){
 

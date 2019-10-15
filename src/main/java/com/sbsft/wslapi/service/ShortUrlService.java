@@ -4,6 +4,7 @@ import com.sbsft.wslapi.domain.ShortUrl;
 import com.sbsft.wslapi.mapper.ShortUrlMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
@@ -78,6 +79,11 @@ public class ShortUrlService {
         su.setIdx(getUrlIdx(surl));
         String orul = surlMapper.getOriginUrl(su);
         return orul;
+    }
+
+    public void getTotalLinkCount(HttpServletRequest req, Model model) {
+        int cnt = surlMapper.getTotalLinkCount();
+        model.addAttribute("totalCnt",cnt);
     }
 }
 

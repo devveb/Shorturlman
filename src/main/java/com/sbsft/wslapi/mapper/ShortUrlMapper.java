@@ -16,4 +16,6 @@ public interface ShortUrlMapper {
 
 
     String getShortUrlByOriginUrl(ShortUrl su);
+
+    int getTotalLinkCount();
 }

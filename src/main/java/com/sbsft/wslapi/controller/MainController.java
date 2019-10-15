@@ -2,6 +2,7 @@ package com.sbsft.wslapi.controller;
 
 import com.sbsft.wslapi.service.ShortUrlService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +22,8 @@ public class MainController {
 
     @CrossOrigin
     @GetMapping("/")
-    public String main(HttpServletRequest req){
+    public String main(HttpServletRequest req, Model model){
+        surlService.getTotalLinkCount(req,model);
         return "index";
     }
 

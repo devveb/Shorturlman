@@ -20,7 +20,6 @@
     <!-- Custom styles for this template -->
     <link rel="stylesheet" th:href="@{/css/landing-page.min.css}"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
 </head>
 <body>
 <!-- Masthead -->
@@ -29,7 +28,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xl-9 mx-auto">
-                <h1 class="mb-5">Life is short, so url is!</h1>
+                <h1 class="mb-5">Life is short, so url is.</h1>
             </div>
             <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
                 <form>
@@ -49,20 +48,28 @@
                     <h4 class="jumbo" id="myTargetElement"></h4>
                 </div>
             </div>
-
         </div>
+
     </div>
 </header>
 <footer class="footer bg-light">
+    <div>
+        <div style="text-align: center;">
+            <script src="https://ads-partners.coupang.com/g.js"></script>
+            <script>
+                new PartnersCoupang.G({ id:47287 });
+            </script>
+        </div>
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
                 <p class="text-muted small mb-4 mb-lg-0">&copy; mlnlmal.ml 2019. by <a href="https://devveb.github.io"
                                                                                        target="_blank">tae.</a></p>
             </div>
-
         </div>
     </div>
+
     <input id="tc" th:value="${totalCnt}" type="hidden">
 </footer>
     <script th:src="@{/js/countUp.min.js}"></script>
@@ -72,14 +79,14 @@
 
         function countUp() {
             const options = {
-                duration: 7,
+                duration: 5,
                 suffix: ' links created!'
             };
             let demo = new CountUp('myTargetElement', $("#tc").val(), options);
             if (!demo.error) {
                 demo.start();
             } else {
-                console.error(demo.error);
+                alert("관리자에게 문의하세요.")
             }
         }
 

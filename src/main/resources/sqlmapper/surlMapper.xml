@@ -26,4 +26,8 @@
     <select id="getShortUrlByOriginUrl" parameterType="ShortUrl" resultType="String">
         select short_url from short_url where origin_url = #{originUrl} limit 1
     </select>
+
+    <select id="getTotalLinkCount" resultType="int">
+        select count(*) from short_url
+    </select>
 </mapper>

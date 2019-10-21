@@ -78,7 +78,7 @@ public class ShortUrlService {
         ShortUrl su = new ShortUrl();
         su.setIdx(getUrlIdx(surl));
         su = surlMapper.getOriginUrl(su);
-        if(su.getHitCnt() <= 100){
+        if(su.getHitCnt() <= 255){
             return su.getOriginUrl();
         }else{
             return "/lmt";

@@ -6,5 +6,6 @@ import lombok.Data;
 @Data
 public class Common  {
     private String message;
+    private int code;
 
 }

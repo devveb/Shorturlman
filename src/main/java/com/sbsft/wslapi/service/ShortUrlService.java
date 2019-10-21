@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,27 +29,57 @@ public class ShortUrlService {
         ShortUrl su = new ShortUrl();
         String origin = req.getParameter("orl").trim();
         su.setOriginUrl(origin);
+        return shinkProcess(su);
+    }
 
-        if(!origin.startsWith("http://")&&!origin.startsWith("https://")){
+    public List<ShortUrl> mkmshrt(HttpServletRequest req) {
+        List<ShortUrl> suList = new ArrayList<>();
+
+        for (String originUrl : urlSeparator(req)){
+            if(originUrl.length() > 0){
+                ShortUrl su = new ShortUrl();
+                su.setOriginUrl(originUrl);
+                suList.add(shinkProcess(su));
+            }
+        }
+        return suList;
+
+    }
+
+    private String[] urlSeparator(HttpServletRequest req) {
+        String urls = ","+req.getParameter("murl").trim().replace("\n",",");
+        return urls.split(",");
+    }
+
+
+    private ShortUrl shinkProcess(ShortUrl su){
+        su.setMessage(null);
+        if(!su.getOriginUrl().startsWith("http://")&&!su.getOriginUrl().startsWith("https://")){
             su.setMessage("can not find 'http://' or 'https://' 를 찾을수 없습니다.");
+            su.setCode(506);
             return su;
         }
 
-        if (origin.contains("http://mlnlmal.ml") ||origin.contains("mlnlmal.ml")||origin.equals("")){
+        if (su.getOriginUrl().contains("http://mlnlmal.ml") ||su.getOriginUrl().contains("mlnlmal.ml")||su.getOriginUrl().equals("")){
             su.setMessage("'mlnlmal.ml'은 URL에 포함될 수 없습니다.");
+            su.setCode(507);
             return su;
         }
-        su.setOriginUrl(origin);
+        su.setOriginUrl(su.getOriginUrl());
 
         if(surlMapper.cntOriginUrl(su) < 1){
             surlMapper.insertOriginUrl(su);
             su.setShortUrl(shrinkUrl(su.getIdx()));
             surlMapper.updateshortUrl(su);
+            su.setMessage("succ");
+            su.setCode(200);
             return su;
         }else{
-            return surlMapper.getShortUrlByOriginUrl(su);
+            su = surlMapper.getShortUrlByOriginUrl(su);
+            su.setMessage("reuse");
+            su.setCode(201);
+            return su;
         }
-
 
     }
 
@@ -93,16 +124,7 @@ public class ShortUrlService {
         model.addAttribute("totalCnt",cnt);
     }
 
-    public String mkmshrt(HttpServletRequest req) {
-        String urls = req.getParameter("murl");
-        urls = urls.trim();
-        String urlss[] = urls.split("\\n");
 
-
-
-        return null;
-
-    }
 }
 
 

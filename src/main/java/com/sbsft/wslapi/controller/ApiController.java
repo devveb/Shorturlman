@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 @RequestMapping("/api")
@@ -28,7 +29,7 @@ public class ApiController {
     @CrossOrigin
     @PostMapping("/mkmshrt")
     @ResponseBody
-    public String mkmshrt(HttpServletRequest req){
+    public List<ShortUrl> mkmshrt(HttpServletRequest req){
         return surlService.mkmshrt(req);
     }
 

@@ -13,9 +13,9 @@
         insert into short_url(origin_url) values (#{originUrl})
     </insert>
 
-    <update id="updateShoutUrl" parameterType="ShortUrl">
+    <update id="updateshortUrl" parameterType="ShortUrl">
         update short_url
-        set short_url = #{shoutUrl}
+        set short_url = #{shortUrl}
         where idx = #{idx}
     </update>
 
@@ -31,8 +31,8 @@
         where origin_url = '${originUrl}'
     </select>
 
-    <select id="getShortUrlByOriginUrl" parameterType="ShortUrl" resultType="String">
-        select short_url from short_url where origin_url = #{originUrl} limit 1
+    <select id="getShortUrlByOriginUrl" parameterType="ShortUrl" resultType="ShortUrl">
+        select <include refid="table_param"/> from short_url where origin_url = #{originUrl} limit 1
     </select>
 
     <select id="getTotalLinkCount" resultType="int">

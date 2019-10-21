@@ -24,25 +24,27 @@ public class ShortUrlService {
     //String[] exs = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
 
     @Transactional
-    public String shrk(HttpServletRequest req) {
+    public ShortUrl shrk(HttpServletRequest req) {
         ShortUrl su = new ShortUrl();
         String origin = req.getParameter("orl").trim();
         su.setOriginUrl(origin);
 
         if(!origin.startsWith("http://")&&!origin.startsWith("https://")){
-            return "can not find 'http://' or 'https://' 를 찾을수 없습니다.";
+            su.setMessage("can not find 'http://' or 'https://' 를 찾을수 없습니다.");
+            return su;
         }
 
         if (origin.contains("http://mlnlmal.ml") ||origin.contains("mlnlmal.ml")||origin.equals("")){
-            return "'mlnlmal.ml'은 URL에 포함될 수 없습니다.";
+            su.setMessage("'mlnlmal.ml'은 URL에 포함될 수 없습니다.");
+            return su;
         }
         su.setOriginUrl(origin);
 
         if(surlMapper.cntOriginUrl(su) < 1){
             surlMapper.insertOriginUrl(su);
             su.setShortUrl(shrinkUrl(su.getIdx()));
-            surlMapper.updateShoutUrl(su);
-            return su.getShortUrl();
+            surlMapper.updateshortUrl(su);
+            return su;
         }else{
             return surlMapper.getShortUrlByOriginUrl(su);
         }
@@ -89,6 +91,17 @@ public class ShortUrlService {
     public void getTotalLinkCount(HttpServletRequest req, Model model) {
         int cnt = surlMapper.getTotalLinkCount();
         model.addAttribute("totalCnt",cnt);
+    }
+
+    public String mkmshrt(HttpServletRequest req) {
+        String urls = req.getParameter("murl");
+        urls = urls.trim();
+        String urlss[] = urls.split("\\n");
+
+
+
+        return null;
+
     }
 }
 

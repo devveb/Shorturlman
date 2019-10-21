@@ -8,14 +8,14 @@ public interface ShortUrlMapper {
 
     int insertOriginUrl(ShortUrl su);
 
-    void updateShoutUrl(ShortUrl su);
+    void updateshortUrl(ShortUrl su);
 
     ShortUrl getOriginUrl(ShortUrl su);
 
     int cntOriginUrl(ShortUrl su);
 
 
-    String getShortUrlByOriginUrl(ShortUrl su);
+    ShortUrl getShortUrlByOriginUrl(ShortUrl su);
 
     int getTotalLinkCount();
 }

@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sbsft.wslapi.mapper.ShortUrlMapper">
+    <sql id="table_param">
+        idx
+        ,origin_url as originUrl
+        ,short_url as shortUrl
+        ,hit_cnt as hitCnt
+        ,rdate as regDate
+    </sql>
+
 	<insert id="insertOriginUrl" parameterType="ShortUrl" useGeneratedKeys="true" keyColumn="idx" keyProperty="idx">
         insert into short_url(origin_url) values (#{originUrl})
     </insert>
@@ -11,10 +19,10 @@
         where idx = #{idx}
     </update>
 
-    <select id="getOriginUrl" parameterType="ShortUrl" resultType="String">
+    <select id="getOriginUrl" parameterType="ShortUrl" resultType="ShortUrl">
         update short_url set hit_cnt = hit_cnt +1 where idx = #{idx}
         ;
-        select origin_url from short_url where idx = #{idx}
+        select <include refid="table_param"/> from short_url where idx = #{idx}
         ;
     </select>
 

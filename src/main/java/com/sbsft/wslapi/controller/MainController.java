@@ -28,6 +28,13 @@ public class MainController {
     }
 
     @CrossOrigin
+    @GetMapping("/lmt")
+    public String limit(HttpServletRequest req, Model model){
+        surlService.getTotalLinkCount(req,model);
+        return "limit";
+    }
+
+    @CrossOrigin
     @GetMapping("/{surl}")
     public String redirect(@PathVariable("surl") String surl){
         return "redirect:"+surlService.getOriginUrl(surl);

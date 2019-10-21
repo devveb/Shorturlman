@@ -40,9 +40,9 @@ public class ShortUrlService {
 
         if(surlMapper.cntOriginUrl(su) < 1){
             surlMapper.insertOriginUrl(su);
-            su.setShoutUrl(shrinkUrl(su.getIdx()));
+            su.setShortUrl(shrinkUrl(su.getIdx()));
             surlMapper.updateShoutUrl(su);
-            return su.getShoutUrl();
+            return su.getShortUrl();
         }else{
             return surlMapper.getShortUrlByOriginUrl(su);
         }
@@ -77,8 +77,13 @@ public class ShortUrlService {
     public String getOriginUrl(String surl) {
         ShortUrl su = new ShortUrl();
         su.setIdx(getUrlIdx(surl));
-        String orul = surlMapper.getOriginUrl(su);
-        return orul;
+        su = surlMapper.getOriginUrl(su);
+        if(su.getHitCnt() <= 100){
+            return su.getOriginUrl();
+        }else{
+            return "/lmt";
+        }
+
     }
 
     public void getTotalLinkCount(HttpServletRequest req, Model model) {

@@ -23,14 +23,12 @@ public class MainController {
     @CrossOrigin
     @GetMapping("/")
     public String main(HttpServletRequest req, Model model){
-        surlService.getTotalLinkCount(req,model);
         return "index";
     }
 
     @CrossOrigin
     @GetMapping("/lmt")
     public String limit(HttpServletRequest req, Model model){
-        surlService.getTotalLinkCount(req,model);
         return "limit";
     }
 

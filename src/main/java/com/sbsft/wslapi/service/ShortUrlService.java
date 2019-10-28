@@ -120,8 +120,12 @@ public class ShortUrlService {
 
     }
 
-    public void getTotalLinkCount(HttpServletRequest req, Model model) {
-        int cnt = surlMapper.getTotalLinkCount();
-        model.addAttribute("totalCnt",cnt);
+    public ShortUrl getTotalLinkCount() {
+        ShortUrl su = new ShortUrl();
+        su.setCount(surlMapper.getTotalLinkCount());
+        su.setCode(200);
+        return su;
+
     }
+
 }

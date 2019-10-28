@@ -32,4 +32,11 @@ public class ApiController {
         return surlService.mkmshrt(req);
     }
 
+    @CrossOrigin
+    @GetMapping("/cntlink")
+    @ResponseBody
+    public ShortUrl cntlink(HttpServletRequest req){
+        return surlService.getTotalLinkCount();
+    }
+
 }

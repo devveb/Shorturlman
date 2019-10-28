@@ -1,12 +1,14 @@
 package com.sbsft.wslapi.service;
 
 import com.sbsft.wslapi.domain.ShortUrl;
+import com.sbsft.wslapi.domain.UrlUser;
 import com.sbsft.wslapi.mapper.ShortUrlMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -128,4 +130,54 @@ public class ShortUrlService {
 
     }
 
+    public int registUser(HttpServletRequest req) {
+        System.out.println(req.getParameterNames());
+        UrlUser uu = new UrlUser();
+        int code = 999;
+
+        try {
+            uu.setEmail(req.getParameter("usrmail"));
+            uu.setPassword(req.getParameter("usrpw"));
+            uu.setType(Integer.parseInt(req.getParameter("usrtyp")));
+            surlMapper.registUser(uu);
+            uu.setCode(200);
+            code = 200;
+        }catch (Exception e){
+            e.printStackTrace();
+            uu.setCode(400);
+        }
+
+        return code;
+    }
+
+    public int loginUser(HttpServletRequest req) {
+        int code = 999;
+        UrlUser uu = new UrlUser();
+
+        try{
+            uu.setEmail(req.getParameter("werewp"));
+            uu.setPassword(req.getParameter("nwebvie"));
+            uu = surlMapper.getUserInfo(uu);
+            code = 200;
+            if(uu != null){
+                System.out.println("login");
+                HttpSession session = req.getSession();
+                session.setAttribute("user",uu);
+            }else{
+                System.out.println("no user");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            code = 404;
+        }
+
+        return code;
+    }
+
+    public int logoutUser(HttpServletRequest req) {
+        int code = 999;
+        HttpSession session = req.getSession();
+        session.invalidate();
+        return 200;
+    }
 }

@@ -69,6 +69,39 @@
 
     </div>
 </header>
+<section class="features-icons bg-light text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                    <div class="features-icons-icon d-flex">
+                        <i class="icon-link m-auto text-primary"></i>
+                    </div>
+                    <h3 onclick="">보기 편한 URL</h3>
+                    <p class="lead mb-0">기~~인URL 보기 편하게 짧게!</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                    <div class="features-icons-icon d-flex">
+                        <i class="icon-control-forward m-auto text-primary"></i>
+                    </div>
+                    <h3>만들기 편한 URL</h3>
+                    <p class="lead mb-0">여러개의 URL을 한 번 클릭으로 단축!</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="features-icons-item mx-auto mb-0 mb-lg-3">
+                    <div class="features-icons-icon d-flex">
+                        <i class="icon-chart m-auto text-primary"></i>
+                    </div>
+                    <h3>분석이 편한 URL</h3>
+                    <p class="lead mb-0">단축 URL 클릭통계!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <footer class="footer bg-light">
     <div>
         <div style="text-align: center;">
@@ -136,7 +169,6 @@
                     copyText.select();
                     document.execCommand("copy");
                     //alert("Clipboard에 '" + copyText.value + "' is Copied 되었습니다!");
-
                 } else {
                     $("#dis").val("");
                     $("#dis").attr("placeholder", result.message);

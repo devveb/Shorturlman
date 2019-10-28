@@ -22,6 +22,23 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
+<style>
+    input{
+        vertical-align: middle;
+    }
+</style>
+<!-- Navigation -->
+<nav class="navbar navbar-light bg-light static-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">mlnlmal.ml - minimize your url</a>
+        <div>
+            <input type="text" placeholder="ID">
+            <input type="text" placeholder="PW">
+            <a class="btn btn-primary" href="#">Sign In</a>
+            <a class="btn btn-primary" href="#">Sign Up</a>
+        </div>
+    </div>
+</nav>
 <!-- Masthead -->
 <header class="masthead text-white text-center">
     <div class="overlay"></div>
@@ -140,11 +157,13 @@
             }
         });
 
-
+        
         function shrink() {
             $.post("/api/mkshrt", {async: false, orl: $("#dis").val()}, function (result) {
+
                 console.log(result)
                 if (result.code ==200 || result.code == 201) {
+
                     $("#dis").val(result.shortUrl);
                     var copyText = document.getElementById("dis");
                     copyText.select();

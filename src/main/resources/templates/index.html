@@ -75,7 +75,9 @@
     <script th:src="@{/js/countUp.min.js}"></script>
     <script>
 
+
         countUp();
+        setInterval(countUp, 60 * 1000); // 60 * 1000 milsec
 
         function countUp() {
 

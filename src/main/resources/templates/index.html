@@ -100,8 +100,9 @@
 
         function shrink() {
             $.post("/api/mkshrt", {async: false, orl: $("#dis").val()}, function (result) {
-                if (result.search("http") == 0) {
-                    $("#dis").val(result);
+                console.log(result)
+                if (result.code ==200 || result.code == 201) {
+                    $("#dis").val(result.shortUrl);
                     var copyText = document.getElementById("dis");
                     copyText.select();
                     document.execCommand("copy");
@@ -109,7 +110,7 @@
                     countUp();
                 } else {
                     $("#dis").val("");
-                    $("#dis").attr("placeholder", result);
+                    $("#dis").attr("placeholder", result.message);
                 }
             });
         }

@@ -40,5 +40,3 @@ public class MainController {
         return "redirect:"+surlService.getOriginUrl(surl);
     }
 }
-
-

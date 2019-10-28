@@ -5,7 +5,6 @@ import com.sbsft.wslapi.domain.UrlUser;
 import com.sbsft.wslapi.mapper.ShortUrlMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -27,24 +26,33 @@ public class ShortUrlService {
     //String[] exs = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
 
     @Transactional
-    public ShortUrl shrk(HttpServletRequest req) {
-        ShortUrl su = new ShortUrl();
+    public UrlUser shrinkUrl(HttpServletRequest req) {
+        UrlUser uu = null;
+        if(req.getSession().getAttribute("user") == null){
+            uu = new UrlUser();
+        }else{
+            uu = (UrlUser) req.getSession().getAttribute("user");
+        }
+
+
         String origin = req.getParameter("orl").trim();
-        su.setOriginUrl(origin);
-        return shinkProcess(su);
+        uu.setOriginUrl(origin);
+        return shinkProcess(uu);
     }
 
-    public List<ShortUrl> mkmshrt(HttpServletRequest req) {
-        List<ShortUrl> suList = new ArrayList<>();
-
+    public List<UrlUser> shrinkUrlList(HttpServletRequest req) {
+        List<UrlUser> uuList = new ArrayList<>();
+        UrlUser user = (UrlUser) req.getSession().getAttribute("user");
         for (String originUrl : urlSeparator(req)){
             if(originUrl.length() > 0){
-                ShortUrl su = new ShortUrl();
-                su.setOriginUrl(originUrl);
-                suList.add(shinkProcess(su));
+                //ShortUrl su = new ShortUrl();
+                UrlUser uu = new UrlUser();
+                uu.setUidx(user.getUidx());
+                uu.setOriginUrl(originUrl);
+                uuList.add(shinkProcess(uu));
             }
         }
-        return suList;
+        return uuList;
 
     }
 
@@ -54,7 +62,7 @@ public class ShortUrlService {
     }
 
 
-    private ShortUrl shinkProcess(ShortUrl su){
+    private UrlUser shinkProcess(UrlUser su){
         su.setMessage(null);
         if(!su.getOriginUrl().startsWith("http://")&&!su.getOriginUrl().startsWith("https://")){
             su.setMessage("can not find 'http://' or 'https://' 를 찾을수 없습니다.");

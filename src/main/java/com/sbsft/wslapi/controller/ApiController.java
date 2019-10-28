@@ -1,6 +1,7 @@
 package com.sbsft.wslapi.controller;
 
 import com.sbsft.wslapi.domain.ShortUrl;
+import com.sbsft.wslapi.domain.UrlUser;
 import com.sbsft.wslapi.service.ShortUrlService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -19,17 +20,17 @@ public class ApiController {
     }
 
     @CrossOrigin
-    @PostMapping("/mkshrt")
+    @PostMapping("/shlk")
     @ResponseBody
-    public ShortUrl mkshrt(HttpServletRequest req){
-        return surlService.shrk(req);
+    public UrlUser shrinkUrl(HttpServletRequest req){
+        return surlService.shrinkUrl(req);
     }
 
     @CrossOrigin
-    @PostMapping("/mkmshrt")
+    @PostMapping("/shlks")
     @ResponseBody
-    public List<ShortUrl> mkmshrt(HttpServletRequest req){
-        return surlService.mkmshrt(req);
+    public List<UrlUser> shrinkUrlList(HttpServletRequest req){
+        return surlService.shrinkUrlList(req);
     }
 
     @CrossOrigin

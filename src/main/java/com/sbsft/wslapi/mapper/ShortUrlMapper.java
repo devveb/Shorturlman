@@ -16,7 +16,7 @@ public interface ShortUrlMapper {
     int cntOriginUrl(ShortUrl su);
 
 
-    ShortUrl getShortUrlByOriginUrl(ShortUrl su);
+    UrlUser getShortUrlByOriginUrl(ShortUrl su);
 
     int getTotalLinkCount();
 

@@ -10,7 +10,7 @@
     </sql>
 
 	<insert id="insertOriginUrl" parameterType="ShortUrl" useGeneratedKeys="true" keyColumn="idx" keyProperty="idx">
-        insert into short_url(origin_url) values (#{originUrl})
+        insert into short_url(origin_url,usr_idx) values (#{originUrl},#{uidx})
     </insert>
 
     <update id="updateshortUrl" parameterType="ShortUrl">
@@ -31,7 +31,7 @@
         where origin_url = '${originUrl}'
     </select>
 
-    <select id="getShortUrlByOriginUrl" parameterType="ShortUrl" resultType="ShortUrl">
+    <select id="getShortUrlByOriginUrl" parameterType="ShortUrl" resultType="UrlUser">
         select <include refid="table_param"/> from short_url where origin_url = #{originUrl} limit 1
     </select>
 
@@ -45,7 +45,7 @@
     </insert>
 
     <select id="getUserInfo" parameterType="UrlUser" resultType="UrlUser">
-        select idx,email from short_url_user
+        select idx as uidx,email from short_url_user
         where email = #{email}
         and pw = #{password}
     </select>

@@ -33,11 +33,12 @@
         <div class="container">
             <a class="navbar-brand" href="#">mlnlmal.ml - minimize your url</a>
             <div>
-                <form id="loginForm" th:if="${#session == null}">
-                    <input type="text" name="werewp" placeholder="email">
-                    <input type="text" name="nwebvie" placeholder="pw">
+                <form id="loginForm" class="form-inline" th:if="${#session == null}">
 
-                    <button type="button" class="btn btn-primary" onclick="login()">Sign In</button>
+                    <input type="email" class="form-control" name="werewp" aria-describedby="emailHelp" placeholder="Enter email">
+                    <input type="password" class="form-control" name="nwebvie" placeholder="Password" style="margin-right: 3px;">
+
+                    <button type="button" class="btn btn-primary" onclick="login()" style="margin-right: 3px;">Sign In</button>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                         Sign Up
                     </button>
@@ -82,11 +83,32 @@
                             </div>
                         </div>
                     </form>
-                    <div style="margin-top: 15px;">
-                        <h4 class="jumbo" id="myTargetElement"></h4>
+
+                </div>
+                <div class="col-xl-9 mx-auto" style="margin-top: 15px;" th:if="${#session != null}">
+                    <div class="row">
+                        <div class="col-5">
+                            <div class="form-group">
+                                <textarea class="form-control" id="originUrlList" rows="10"></textarea>
+                            </div>
+                        </div>
+                        <div class="col" style="margin-top: 15%;">
+                            <button class="btn btn-block btn-lg btn-primary" onclick="shrinkAll()" type="button">Make all
+                                short!
+                            </button>
+                        </div>
+                        <div class="col-5">
+                            <div class="form-group">
+                                <textarea class="form-control" id="shortUrlList" rows="10" readonly="readonly"></textarea>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <div class="col-xl-9 mx-auto" style="margin-top: 15px;">
+                    <h4 class="jumbo" id="myTargetElement"></h4>
+                </div>
             </div>
+
         </div>
     </header>
     <section class="features-icons bg-light text-center">
@@ -260,7 +282,7 @@
         });
 
         function shrink() {
-            $.post("/api/mkshrt", {async: false, orl: $("#dis").val()}, function (result) {
+            $.post("/api/shlk", {async: false, orl: $("#dis").val()}, function (result) {
 
                 console.log(result)
                 if (result.code ==200 || result.code == 201) {
@@ -274,6 +296,36 @@
                     $("#dis").val("");
                     $("#dis").attr("placeholder", result.message);
                 }
+            });
+            countUp();
+        }
+
+        function shrinkAll() {
+            $.post("/api/shlks", {async: false, murl: $("#originUrlList").val()}, function (result) {
+                var olist="";
+                console.log(result);
+                $.each(result, function( index, value ) {
+                    if(value.code == 200 || value.code ==201){
+                        olist = olist+value.shortUrl+'\n';
+                    }else{
+                        olist = olist+value.message+'\n';
+                    }
+                    console.log( olist );
+                });
+                $("#shortUrlList").val(olist);
+                /*
+                if (result.code ==200 || result.code == 201) {
+
+                    $("#dis").val(result.shortUrl);
+                    var copyText = document.getElementById("dis");
+                    copyText.select();
+                    document.execCommand("copy");
+                    //alert("Clipboard에 '" + copyText.value + "' is Copied 되었습니다!");
+                } else {
+                    $("#dis").val("");
+                    $("#dis").attr("placeholder", result.message);
+                }
+                 */
             });
             countUp();
         }

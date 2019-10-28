@@ -20,108 +20,152 @@
     <!-- Custom styles for this template -->
     <link rel="stylesheet" th:href="@{/css/landing-page.min.css}"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<style>
-    input{
-        vertical-align: middle;
-    }
-</style>
-<!-- Navigation -->
-<nav class="navbar navbar-light bg-light static-top">
-    <div class="container">
-        <a class="navbar-brand" href="#">mlnlmal.ml - minimize your url</a>
+    <style>
+        input{
+            vertical-align: middle;
+        }
+    </style>
+    <!-- Navigation -->
+    <nav class="navbar navbar-light bg-light static-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">mlnlmal.ml - minimize your url</a>
+            <div>
+                <input type="text" placeholder="ID">
+                <input type="text" placeholder="PW">
+                <a class="btn btn-primary" href="#">Sign In</a>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Sign Up
+                </button>
+            </div>
+        </div>
+    </nav>
+    <!-- Masthead -->
+    <header class="masthead text-white text-center">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-9 mx-auto">
+                    <h1 class="mb-5">Life is short, so url is.</h1>
+                </div>
+                <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+                    <form>
+                        <div class="form-row">
+                            <div class="col-12 col-md-9 mb-2 mb-md-0">
+                                <input class="form-control form-control-lg" id="dis" placeholder="Enter your url..."
+                                       type="text">
+                            </div>
+                            <div class="col-12 col-md-3">
+                                <button class="btn btn-block btn-lg btn-primary" onclick="shrink()" type="button">Make it
+                                    short
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <div style="margin-top: 15px;">
+                        <h4 class="jumbo" id="myTargetElement"></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="features-icons bg-light text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                        <div class="features-icons-icon d-flex">
+                            <i class="icon-link m-auto text-primary"></i>
+                        </div>
+                        <h3 onclick="">보기 편한 URL</h3>
+                        <p class="lead mb-0">기~~인URL 보기 편하게 짧게!</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                        <div class="features-icons-icon d-flex">
+                            <i class="icon-control-forward m-auto text-primary"></i>
+                        </div>
+                        <h3>만들기 편한 URL</h3>
+                        <p class="lead mb-0">여러개의 URL을 한 번 클릭으로 단축!</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="features-icons-item mx-auto mb-0 mb-lg-3">
+                        <div class="features-icons-icon d-flex">
+                            <i class="icon-chart m-auto text-primary"></i>
+                        </div>
+                        <h3>분석이 편한 URL</h3>
+                        <p class="lead mb-0">단축 URL 클릭통계!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Button trigger modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Registration</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleInputEmail">Email</label>
+                            <input type="text" onchange="" class="form-control" id="exampleInputEmail" placeholder="Email" aria-label="Email" aria-describedby="button-addon4">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Password</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Password Confirm</label>
+                            <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control">
+                                <option>광고용</option>
+                                <option>사무용</option>
+                                <option>개인용</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer bg-light">
         <div>
-            <input type="text" placeholder="ID">
-            <input type="text" placeholder="PW">
-            <a class="btn btn-primary" href="#">Sign In</a>
-            <a class="btn btn-primary" href="#">Sign Up</a>
-        </div>
-    </div>
-</nav>
-<!-- Masthead -->
-<header class="masthead text-white text-center">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-9 mx-auto">
-                <h1 class="mb-5">Life is short, so url is.</h1>
+            <div style="text-align: center;">
+                <script src="https://ads-partners.coupang.com/g.js"></script>
+                <script>
+                    new PartnersCoupang.G({ id:47287 });
+                </script>
             </div>
-            <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
-                <form>
-                    <div class="form-row">
-                        <div class="col-12 col-md-9 mb-2 mb-md-0">
-                            <input class="form-control form-control-lg" id="dis" placeholder="Enter your url..."
-                                   type="text">
-                        </div>
-                        <div class="col-12 col-md-3">
-                            <button class="btn btn-block btn-lg btn-primary" onclick="shrink()" type="button">Make it
-                                short
-                            </button>
-                        </div>
-                    </div>
-                </form>
-                <div style="margin-top: 15px;">
-                    <h4 class="jumbo" id="myTargetElement"></h4>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
+                    <p class="text-muted small mb-4 mb-lg-0">&copy; mlnlmal.ml 2019. by
+                        <a href="https://devveb.github.io" target="_blank">tae.</a>
+                    </p>
                 </div>
             </div>
         </div>
+    </footer>
 
-    </div>
-</header>
-<section class="features-icons bg-light text-center">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4">
-                <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-                    <div class="features-icons-icon d-flex">
-                        <i class="icon-link m-auto text-primary"></i>
-                    </div>
-                    <h3 onclick="">보기 편한 URL</h3>
-                    <p class="lead mb-0">기~~인URL 보기 편하게 짧게!</p>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-                    <div class="features-icons-icon d-flex">
-                        <i class="icon-control-forward m-auto text-primary"></i>
-                    </div>
-                    <h3>만들기 편한 URL</h3>
-                    <p class="lead mb-0">여러개의 URL을 한 번 클릭으로 단축!</p>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="features-icons-item mx-auto mb-0 mb-lg-3">
-                    <div class="features-icons-icon d-flex">
-                        <i class="icon-chart m-auto text-primary"></i>
-                    </div>
-                    <h3>분석이 편한 URL</h3>
-                    <p class="lead mb-0">단축 URL 클릭통계!</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<footer class="footer bg-light">
-    <div>
-        <div style="text-align: center;">
-            <script src="https://ads-partners.coupang.com/g.js"></script>
-            <script>
-                new PartnersCoupang.G({ id:47287 });
-            </script>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
-                <p class="text-muted small mb-4 mb-lg-0">&copy; mlnlmal.ml 2019. by
-                    <a href="https://devveb.github.io" target="_blank">tae.</a>
-                </p>
-            </div>
-        </div>
-    </div>
-
-</footer>
     <script th:src="@{/js/countUp.min.js}"></script>
     <script>
 
@@ -157,7 +201,6 @@
             }
         });
 
-        
         function shrink() {
             $.post("/api/mkshrt", {async: false, orl: $("#dis").val()}, function (result) {
 

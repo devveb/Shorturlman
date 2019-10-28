@@ -15,7 +15,6 @@ public class ApiController {
     private final ShortUrlService surlService;
 
     public ApiController(ShortUrlService surlService) {
-
         this.surlService = surlService;
     }
 
@@ -33,8 +32,11 @@ public class ApiController {
         return surlService.mkmshrt(req);
     }
 
-
+    @CrossOrigin
+    @GetMapping("/cntlink")
+    @ResponseBody
+    public ShortUrl cntlink(HttpServletRequest req){
+        return surlService.getTotalLinkCount();
+    }
 
 }
-
-

@@ -81,30 +81,40 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
-                <p class="text-muted small mb-4 mb-lg-0">&copy; mlnlmal.ml 2019. by <a href="https://devveb.github.io"
-                                                                                       target="_blank">tae.</a></p>
+                <p class="text-muted small mb-4 mb-lg-0">&copy; mlnlmal.ml 2019. by
+                    <a href="https://devveb.github.io" target="_blank">tae.</a>
+                </p>
             </div>
         </div>
     </div>
 
-    <input id="tc" th:value="${totalCnt}" type="hidden">
 </footer>
     <script th:src="@{/js/countUp.min.js}"></script>
     <script>
 
+
         countUp();
+        setInterval(countUp, 60 * 1000); // 60 * 1000 milsec
 
         function countUp() {
-            const options = {
-                duration: 5,
-                suffix: ' links created!'
-            };
-            let demo = new CountUp('myTargetElement', $("#tc").val(), options);
-            if (!demo.error) {
-                demo.start();
-            } else {
-                alert("관리자에게 문의하세요.")
-            }
+
+            jQuery.ajaxSetup({async:false});
+            $.get("/api/cntlink", function(result) {
+
+                    if (result.code == 200) {
+                        const options = {
+                            duration: 5,
+                            suffix: ' links created!'
+                        };
+                        let demo = new CountUp('myTargetElement', result.count, options);
+                        if (!demo.error) {
+                            demo.start();
+                        }
+                    } else {
+                        alert("관리자에게 문의하세요.")
+                    }
+                }
+            );
         }
 
         $("#dis").keydown(function (key) {
@@ -117,19 +127,22 @@
         
         function shrink() {
             $.post("/api/mkshrt", {async: false, orl: $("#dis").val()}, function (result) {
-                console.log(result);
-                if (result.code == 200) {
+
+                console.log(result)
+                if (result.code ==200 || result.code == 201) {
+
                     $("#dis").val(result.shortUrl);
                     var copyText = document.getElementById("dis");
                     copyText.select();
                     document.execCommand("copy");
-                    alert("Clipboard에 '" + copyText.value + "' is Copied 되었습니다!");
-                    countUp();
+                    //alert("Clipboard에 '" + copyText.value + "' is Copied 되었습니다!");
+
                 } else {
                     $("#dis").val("");
                     $("#dis").attr("placeholder", result.message);
                 }
             });
+            countUp();
         }
     </script>
 </body>

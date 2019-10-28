@@ -86,9 +86,8 @@ public class ShortUrlService {
 
 
     private String shrinkUrl(int idx){
-
+        //10진번 인덱스를 52진법으로
         String str = "";
-
 
         while (idx >= list.size()) {
             str = list.get(idx % list.size()) + str;
@@ -98,6 +97,8 @@ public class ShortUrlService {
     }
 
     private int getUrlIdx(String surl){
+        //hash to idx
+        //52진법에서 10진번 인덱스로
         int idx = 0;
 
         for (int i = 0; i < surl.length(); i++) {
@@ -119,14 +120,12 @@ public class ShortUrlService {
 
     }
 
-    public void getTotalLinkCount(HttpServletRequest req, Model model) {
-        int cnt = surlMapper.getTotalLinkCount();
-        model.addAttribute("totalCnt",cnt);
+    public ShortUrl getTotalLinkCount() {
+        ShortUrl su = new ShortUrl();
+        su.setCount(surlMapper.getTotalLinkCount());
+        su.setCode(200);
+        return su;
+
     }
 
-
 }
-
-
-
-	

@@ -7,5 +7,6 @@ import lombok.Data;
 public class Common  {
     private String message;
     private int code;
+    private int count;
 
 }

@@ -42,10 +42,19 @@
                         Sign Up
                     </button>
                 </form>
-                <div th:if="${#session != null}">
-                    <p th:text="${#httpSession.getAttribute('user').email}"></p>
+                <div class="dropdown" th:if="${#session != null}">
+
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user"></i>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">My Info</a>
+                        <a class="dropdown-item" href="#">My Link</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
                     <button type="button" class="btn btn-primary" onclick="logout()" >Logout</button>
                 </div>
+
 
 
             </div>

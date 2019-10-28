@@ -38,4 +38,15 @@
     <select id="getTotalLinkCount" resultType="int">
         select count(*) from short_url
     </select>
+
+    <insert id="registUser" parameterType="UrlUser">
+        insert into short_url_user(email,pw,type)
+        values (#{email},#{password},#{type});
+    </insert>
+
+    <select id="getUserInfo" parameterType="UrlUser" resultType="UrlUser">
+        select idx,email from short_url_user
+        where email = #{email}
+        and pw = #{password}
+    </select>
 </mapper>

@@ -33,12 +33,21 @@
         <div class="container">
             <a class="navbar-brand" href="#">mlnlmal.ml - minimize your url</a>
             <div>
-                <input type="text" placeholder="ID">
-                <input type="text" placeholder="PW">
-                <a class="btn btn-primary" href="#">Sign In</a>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                    Sign Up
-                </button>
+                <form id="loginForm" th:if="${#session == null}">
+                    <input type="text" name="werewp" placeholder="email">
+                    <input type="text" name="nwebvie" placeholder="pw">
+
+                    <button type="button" class="btn btn-primary" onclick="login()">Sign In</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                        Sign Up
+                    </button>
+                </form>
+                <div th:if="${#session != null}">
+                    <p th:text="${#httpSession.getAttribute('user').email}"></p>
+                    <button type="button" class="btn btn-primary" onclick="logout()" >Logout</button>
+                </div>
+
+
             </div>
         </div>
     </nav>
@@ -115,33 +124,31 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form id="regForm">
                         <div class="form-group">
                             <label for="exampleInputEmail">Email</label>
-                            <input type="text" onchange="" class="form-control" id="exampleInputEmail" placeholder="Email" aria-label="Email" aria-describedby="button-addon4">
+                            <input type="text" onchange="" name="usrmail" class="form-control" id="exampleInputEmail" placeholder="Email" aria-label="Email" aria-describedby="button-addon4">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                            <input type="password" class="form-control" name="usrpw" id="exampleInputPassword1" placeholder="Password">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Password Confirm</label>
                             <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password">
                         </div>
                         <div class="form-group">
-                            <select class="form-control">
-                                <option>광고용</option>
-                                <option>사무용</option>
-                                <option>개인용</option>
+                            <select class="form-control" name="usrtyp">
+                                <option value="1">광고용</option>
+                                <option value="2">사무용</option>
+                                <option value="3">개인용</option>
                             </select>
                         </div>
-
-                        <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" onclick="registration()" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
@@ -170,8 +177,50 @@
     <script>
 
 
-        countUp();
-        setInterval(countUp, 60 * 1000); // 60 * 1000 milsec
+        $(function() {
+            $("#dis").focus();
+            countUp();
+            setInterval(countUp, 60 * 1000);
+        });
+
+         // 60 * 1000 milsec
+
+        function logout(){
+            $.get("/api/usrgo", function (code) {
+                if(code == 200){
+                    alert("logout 완료.");
+                    location.reload();
+                }else{
+                    alert("Ask to 관리자.");
+                    location.reload();
+                }
+            });
+        }
+
+        function registration(){
+            $.post("/api/usreg", $("#regForm").serialize(), function (code) {
+                if(code == 200){
+                    alert("Registration 완료.");
+                    location.reload();
+                }else{
+                    alert("Ask to 관리자.");
+                    location.reload();
+                }
+            });
+        }
+        
+        function login() {
+            $.post("/api/usrog", $("#loginForm").serialize(), function (code) {
+                if(code == 200){
+                    alert("Registration 완료.");
+                    location.reload();
+                }else{
+                    alert("Ask to 관리자.");
+                    location.reload();
+                }
+            });
+
+        }
 
         function countUp() {
 

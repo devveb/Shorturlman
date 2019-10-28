@@ -39,4 +39,29 @@ public class ApiController {
         return surlService.getTotalLinkCount();
     }
 
+    @CrossOrigin
+    @PostMapping("/usreg")
+    @ResponseBody
+    public int userRegist(HttpServletRequest req){
+        return surlService.registUser(req);
+    }
+
+    @CrossOrigin
+    @PostMapping("/usrog")
+    @ResponseBody
+    public int userLogin(HttpServletRequest req){
+        return surlService.loginUser(req);
+    }
+    @CrossOrigin
+    @GetMapping("/usrgo")
+    @ResponseBody
+    public int userLogout(HttpServletRequest req){
+        return surlService.logoutUser(req);
+    }
+
+
+
+
+
+
 }

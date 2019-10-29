@@ -51,13 +51,10 @@
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item" href="#">My Info</a>
                         <a class="dropdown-item" href="#">My Link</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        <a class="dropdown-item" href="#">Noti</a>
                     </div>
                     <button type="button" class="btn btn-primary" onclick="logout()" >Logout</button>
                 </div>
-
-
-
             </div>
         </div>
     </nav>
@@ -78,18 +75,18 @@
                             </div>
                             <div class="col-12 col-md-3">
                                 <button class="btn btn-block btn-lg btn-primary" onclick="shrink()" type="button">Make it
-                                    short
+                                    short!
                                 </button>
                             </div>
                         </div>
                     </form>
 
                 </div>
-                <div class="col-xl-9 mx-auto" style="margin-top: 15px;" th:if="${#session != null}">
+                <div class="col-xl-9 mx-auto" style="margin-top: 15px;">
                     <div class="row">
                         <div class="col-5">
                             <div class="form-group">
-                                <textarea class="form-control" id="originUrlList" rows="10"></textarea>
+                                <textarea class="form-control" id="originUrlList" rows="10" placeholder=" 여러 URL을 한 번에! &#10; 한줄씩 띄고 입력해주세요. &#10; http://www.example.com &#10; https://www.sample.net"></textarea>
                             </div>
                         </div>
                         <div class="col" style="margin-top: 15%;">
@@ -129,7 +126,8 @@
                             <i class="icon-control-forward m-auto text-primary"></i>
                         </div>
                         <h3>만들기 편한 URL</h3>
-                        <p class="lead mb-0">여러개의 URL을 한 번 클릭으로 단축!(회원가입필요)</p>
+                        <p class="lead mb-0">여러개의 URL을 한 번 클릭으로 단축!</p>
+                        <p class="lead mb-0">(준비중)</p>
                     </div>
                 </div>
                 <div class="col-lg-4">
@@ -139,6 +137,7 @@
                         </div>
                         <h3>분석이 편한 URL</h3>
                         <p class="lead mb-0">단축 URL 클릭통계!</p>
+                        <p class="lead mb-0">(준비중)</p>
                     </div>
                 </div>
             </div>
@@ -184,21 +183,42 @@
             </div>
         </div>
     </div>
-    <footer class="footer bg-light">
-        <div>
-            <div style="text-align: center;">
-                <script src="https://ads-partners.coupang.com/g.js"></script>
-                <script>
-                    new PartnersCoupang.G({ id:47287 });
-                </script>
+    <section class="call-to-action text-white text-center">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-9 mx-auto">
+                    <script src="https://ads-partners.coupang.com/g.js"></script>
+                    <script>
+                        new PartnersCoupang.G({ id:47287 });
+                    </script>
+                </div>
             </div>
         </div>
+    </section>
+
+    <footer class="footer bg-light">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
-                    <p class="text-muted small mb-4 mb-lg-0">&copy; mlnlmal.ml 2019. by
-                        <a href="https://devveb.github.io" target="_blank">devveb</a>
-                    </p>
+                    <ul class="list-inline mb-2">
+                        <li class="list-inline-item">
+                            <a href="https://devveb.github.io" target="_blank">About</a>
+                        </li>
+                        <li class="list-inline-item">&sdot;</li>
+                        <li class="list-inline-item">
+                            <a href="#">Contact</a>
+                        </li>
+                        <li class="list-inline-item">&sdot;</li>
+                        <li class="list-inline-item">
+                            <a href="#">Terms of Use</a>
+                        </li>
+                        <li class="list-inline-item">&sdot;</li>
+                        <li class="list-inline-item">
+                            <a href="#">Privacy Policy</a>
+                        </li>
+                    </ul>
+                    <p class="text-muted small mb-4 mb-lg-0">&copy; mlnlmal.ml 2019.</p>
                 </div>
             </div>
         </div>
@@ -207,14 +227,11 @@
     <script th:src="@{/js/countUp.min.js}"></script>
     <script>
 
-
         $(function() {
             $("#dis").focus();
             countUp();
             setInterval(countUp, 60 * 1000);
         });
-
-         // 60 * 1000 milsec
 
         function logout(){
             $.get("/api/usrgo", function (code) {

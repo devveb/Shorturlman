@@ -10,7 +10,7 @@
     </sql>
 
 	<insert id="insertOriginUrl" parameterType="ShortUrl" useGeneratedKeys="true" keyColumn="idx" keyProperty="idx">
-        insert into short_url(origin_url) values (#{originUrl})
+        insert into short_url(origin_url,usr_idx) values (#{originUrl},#{uidx})
     </insert>
 
     <update id="updateshortUrl" parameterType="ShortUrl">
@@ -31,11 +31,22 @@
         where origin_url = '${originUrl}'
     </select>
 
-    <select id="getShortUrlByOriginUrl" parameterType="ShortUrl" resultType="ShortUrl">
+    <select id="getShortUrlByOriginUrl" parameterType="ShortUrl" resultType="UrlUser">
         select <include refid="table_param"/> from short_url where origin_url = #{originUrl} limit 1
     </select>
 
     <select id="getTotalLinkCount" resultType="int">
         select count(*) from short_url
+    </select>
+
+    <insert id="registUser" parameterType="UrlUser">
+        insert into short_url_user(email,pw,type)
+        values (#{email},#{password},#{type});
+    </insert>
+
+    <select id="getUserInfo" parameterType="UrlUser" resultType="UrlUser">
+        select idx as uidx,email from short_url_user
+        where email = #{email}
+        and pw = #{password}
     </select>
 </mapper>

@@ -5,7 +5,7 @@ server:
 
 spring:
     profiles:
-        active: home
+        active: 
 
 mybatis:
     mapper-locations: classpath*:sqlmapper/*.xml

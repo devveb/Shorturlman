@@ -1,12 +1,13 @@
 package com.sbsft.wslapi.service;
 
 import com.sbsft.wslapi.domain.ShortUrl;
+import com.sbsft.wslapi.domain.UrlUser;
 import com.sbsft.wslapi.mapper.ShortUrlMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,24 +26,33 @@ public class ShortUrlService {
     //String[] exs = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
 
     @Transactional
-    public ShortUrl shrk(HttpServletRequest req) {
-        ShortUrl su = new ShortUrl();
+    public UrlUser shrinkUrl(HttpServletRequest req) {
+        UrlUser uu = null;
+        if(req.getSession().getAttribute("user") == null){
+            uu = new UrlUser();
+        }else{
+            uu = (UrlUser) req.getSession().getAttribute("user");
+        }
+
+
         String origin = req.getParameter("orl").trim();
-        su.setOriginUrl(origin);
-        return shinkProcess(su);
+        uu.setOriginUrl(origin);
+        return shinkProcess(uu);
     }
 
-    public List<ShortUrl> mkmshrt(HttpServletRequest req) {
-        List<ShortUrl> suList = new ArrayList<>();
-
+    public List<UrlUser> shrinkUrlList(HttpServletRequest req) {
+        List<UrlUser> uuList = new ArrayList<>();
+        UrlUser user = (UrlUser) req.getSession().getAttribute("user");
         for (String originUrl : urlSeparator(req)){
             if(originUrl.length() > 0){
-                ShortUrl su = new ShortUrl();
-                su.setOriginUrl(originUrl);
-                suList.add(shinkProcess(su));
+                //ShortUrl su = new ShortUrl();
+                UrlUser uu = new UrlUser();
+                //uu.setUidx(user.getUidx());
+                uu.setOriginUrl(originUrl);
+                uuList.add(shinkProcess(uu));
             }
         }
-        return suList;
+        return uuList;
 
     }
 
@@ -52,7 +62,7 @@ public class ShortUrlService {
     }
 
 
-    private ShortUrl shinkProcess(ShortUrl su){
+    private UrlUser shinkProcess(UrlUser su){
         su.setMessage(null);
         if(!su.getOriginUrl().startsWith("http://")&&!su.getOriginUrl().startsWith("https://")){
             su.setMessage("can not find 'http://' or 'https://' 를 찾을수 없습니다.");
@@ -86,9 +96,8 @@ public class ShortUrlService {
 
 
     private String shrinkUrl(int idx){
-
+        //10진번 인덱스를 52진법으로
         String str = "";
-
 
         while (idx >= list.size()) {
             str = list.get(idx % list.size()) + str;
@@ -98,6 +107,8 @@ public class ShortUrlService {
     }
 
     private int getUrlIdx(String surl){
+        //hash to idx
+        //52진법에서 10진번 인덱스로
         int idx = 0;
 
         for (int i = 0; i < surl.length(); i++) {
@@ -119,14 +130,62 @@ public class ShortUrlService {
 
     }
 
-    public void getTotalLinkCount(HttpServletRequest req, Model model) {
-        int cnt = surlMapper.getTotalLinkCount();
-        model.addAttribute("totalCnt",cnt);
+    public ShortUrl getTotalLinkCount() {
+        ShortUrl su = new ShortUrl();
+        su.setCount(surlMapper.getTotalLinkCount());
+        su.setCode(200);
+        return su;
+
     }
 
+    public int registUser(HttpServletRequest req) {
+        System.out.println(req.getParameterNames());
+        UrlUser uu = new UrlUser();
+        int code = 999;
 
+        try {
+            uu.setEmail(req.getParameter("usrmail"));
+            uu.setPassword(req.getParameter("usrpw"));
+            uu.setType(Integer.parseInt(req.getParameter("usrtyp")));
+            surlMapper.registUser(uu);
+            uu.setCode(200);
+            code = 200;
+        }catch (Exception e){
+            e.printStackTrace();
+            uu.setCode(400);
+        }
+
+        return code;
+    }
+
+    public int loginUser(HttpServletRequest req) {
+        int code = 999;
+        UrlUser uu = new UrlUser();
+
+        try{
+            uu.setEmail(req.getParameter("werewp"));
+            uu.setPassword(req.getParameter("nwebvie"));
+            uu = surlMapper.getUserInfo(uu);
+            code = 200;
+            if(uu != null){
+                System.out.println("login");
+                HttpSession session = req.getSession();
+                session.setAttribute("user",uu);
+            }else{
+                System.out.println("no user");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            code = 404;
+        }
+
+        return code;
+    }
+
+    public int logoutUser(HttpServletRequest req) {
+        int code = 999;
+        HttpSession session = req.getSession();
+        session.invalidate();
+        return 200;
+    }
 }
-
-
-
-	

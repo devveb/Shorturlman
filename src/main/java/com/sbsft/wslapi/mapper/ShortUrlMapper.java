@@ -1,6 +1,7 @@
 package com.sbsft.wslapi.mapper;
 
 import com.sbsft.wslapi.domain.ShortUrl;
+import com.sbsft.wslapi.domain.UrlUser;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
@@ -15,7 +16,11 @@ public interface ShortUrlMapper {
     int cntOriginUrl(ShortUrl su);
 
 
-    ShortUrl getShortUrlByOriginUrl(ShortUrl su);
+    UrlUser getShortUrlByOriginUrl(ShortUrl su);
 
     int getTotalLinkCount();
+
+    void registUser(UrlUser uu);
+
+    UrlUser getUserInfo(UrlUser uu);
 }

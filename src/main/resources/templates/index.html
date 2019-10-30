@@ -84,23 +84,28 @@
 <!--                </div>-->
                 <div class="col-xl-9 mx-auto" style="margin-top: 15px;">
                     <div class="row">
-                        <div class="col-5">
+                        <div class="col-6">
                             <div class="form-group">
                                 <textarea class="form-control" id="originUrlList" rows="10" placeholder="여러 URL을 한 번에! &#10; 한줄씩 띄고 입력해주세요. &#10; Enter Urls like below ... &#10; &nbsp &#10; http://www.example.com/this-is-ugly-longurl-that-can-not-remember &#10; https://www.sample.net/it-has-many-params?like=this?can-you-beleve-it"></textarea>
                             </div>
                         </div>
-                        <div class="col" style="margin-top: 15%;">
-                            <button class="btn btn-block btn-lg btn-primary" onclick="shrinkAll()" type="button">Make all
-                                short!
-                            </button>
-                        </div>
-                        <div class="col-5">
+                        <div class="col-6">
                             <div class="form-group">
                                 <textarea class="form-control" id="shortUrlList" rows="10" readonly="readonly"></textarea>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="col-xl-9 mx-auto">
+                    <div class="row">
+                        <div class="col" >
+                            <button class="btn btn-block btn-lg btn-primary" onclick="shrinkAll()" type="button">Make all
+                                short!
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="col-xl-9 mx-auto" style="margin-top: 15px;">
                     <h4 class="jumbo" id="myTargetElement"></h4>
                 </div>

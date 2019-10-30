@@ -47,7 +47,7 @@ public class ShortUrlService {
             if(originUrl.length() > 0){
                 //ShortUrl su = new ShortUrl();
                 UrlUser uu = new UrlUser();
-                uu.setUidx(user.getUidx());
+                //uu.setUidx(user.getUidx());
                 uu.setOriginUrl(originUrl);
                 uuList.add(shinkProcess(uu));
             }

@@ -23,4 +23,6 @@ public interface ShortUrlMapper {
     void registUser(UrlUser uu);
 
     UrlUser getUserInfo(UrlUser uu);
+
+    void writeRedirectionLog(ShortUrl su);
 }

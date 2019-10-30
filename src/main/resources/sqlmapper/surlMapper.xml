@@ -44,6 +44,10 @@
         values (#{email},#{password},#{type});
     </insert>
 
+    <insert id="writeRedirectionLog" parameterType="UrlUser">
+        insert into short_url_redirectin_log(url_idx) VALUES (#{idx})
+    </insert>
+
     <select id="getUserInfo" parameterType="UrlUser" resultType="UrlUser">
         select idx as uidx,email from short_url_user
         where email = #{email}

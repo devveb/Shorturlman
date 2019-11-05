@@ -193,4 +193,11 @@ public class ShortUrlService {
         session.invalidate();
         return 200;
     }
+
+    public ShortUrl getTotalRedirectionCount() {
+        ShortUrl su = new ShortUrl();
+        su.setCount(surlMapper.getTotalRedirectionCount());
+        su.setCode(200);
+        return su;
+    }
 }

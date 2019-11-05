@@ -25,4 +25,6 @@ public interface ShortUrlMapper {
     UrlUser getUserInfo(UrlUser uu);
 
     void writeRedirectionLog(ShortUrl su);
+
+    int getTotalRedirectionCount();
 }

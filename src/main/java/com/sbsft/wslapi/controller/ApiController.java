@@ -36,8 +36,15 @@ public class ApiController {
     @CrossOrigin
     @GetMapping("/cntlink")
     @ResponseBody
-    public ShortUrl cntlink(HttpServletRequest req){
+    public ShortUrl cntLinks(HttpServletRequest req){
         return surlService.getTotalLinkCount();
+    }
+
+    @CrossOrigin
+    @GetMapping("/cntrd")
+    @ResponseBody
+    public ShortUrl cntRedirection(HttpServletRequest req){
+        return surlService.getTotalRedirectionCount();
     }
 
     @CrossOrigin

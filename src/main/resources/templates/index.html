@@ -107,7 +107,9 @@
                 </div>
 
                 <div class="col-xl-9 mx-auto" style="margin-top: 15px;">
-                    <h4 class="jumbo" id="myTargetElement"></h4>
+                    <h4 class="jumbo" id="myTargetElement" style="display: inline;"></h4>
+                    <h4 style="display: inline;">&nbsp&nbsp&nbsp&nbsp</h4>
+                    <h4 class="jumbo" id="clkcnt" style="display: inline;"></h4>
                 </div>
             </div>
 
@@ -147,46 +149,7 @@
             </div>
         </div>
     </section>
-    <!-- Button trigger modal -->
-<!--    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
-<!--        <div class="modal-dialog" role="document">-->
-<!--            <div class="modal-content">-->
-<!--                <div class="modal-header">-->
-<!--                    <h5 class="modal-title" id="exampleModalLabel">Registration</h5>-->
-<!--                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-<!--                        <span aria-hidden="true">&times;</span>-->
-<!--                    </button>-->
-<!--                </div>-->
-<!--                <div class="modal-body">-->
-<!--                    <form id="regForm">-->
-<!--                        <div class="form-group">-->
-<!--                            <label for="exampleInputEmail">Email</label>-->
-<!--                            <input type="text" onchange="" name="usrmail" class="form-control" id="exampleInputEmail" placeholder="Email" aria-label="Email" aria-describedby="button-addon4">-->
-<!--                        </div>-->
-<!--                        <div class="form-group">-->
-<!--                            <label for="exampleInputPassword1">Password</label>-->
-<!--                            <input type="password" class="form-control" name="usrpw" id="exampleInputPassword1" placeholder="Password">-->
-<!--                        </div>-->
-<!--                        <div class="form-group">-->
-<!--                            <label for="exampleInputPassword1">Password Confirm</label>-->
-<!--                            <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password">-->
-<!--                        </div>-->
-<!--                        <div class="form-group">-->
-<!--                            <select class="form-control" name="usrtyp">-->
-<!--                                <option value="1">광고용</option>-->
-<!--                                <option value="2">사무용</option>-->
-<!--                                <option value="3">개인용</option>-->
-<!--                            </select>-->
-<!--                        </div>-->
-<!--                    </form>-->
-<!--                </div>-->
-<!--                <div class="modal-footer">-->
-<!--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
-<!--                    <button type="button" onclick="registration()" class="btn btn-primary">Save changes</button>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
+
     <section class="call-to-action text-white text-center">
         <div class="overlay"></div>
         <div class="container">
@@ -234,45 +197,32 @@
         $(function() {
             $("#dis").focus();
             countUp();
-            setInterval(countUp, 60 * 1000);
+            countRd();
+            setInterval(countUp, 30 * 1000);
+            setInterval(countRd, 60 * 1000);
         });
 
-        // function logout(){
-        //     $.get("/api/usrgo", function (code) {
-        //         if(code == 200){
-        //             alert("logout 완료.");
-        //             location.reload();
-        //         }else{
-        //             alert("Ask to 관리자.");
-        //             location.reload();
-        //         }
-        //     });
-        // }
+        function countRd() {
 
-        // function registration(){
-        //     $.post("/api/usreg", $("#regForm").serialize(), function (code) {
-        //         if(code == 200){
-        //             alert("Registration 완료.");
-        //             location.reload();
-        //         }else{
-        //             alert("Ask to 관리자.");
-        //             location.reload();
-        //         }
-        //     });
-        // }
-        
-        // function login() {
-        //     $.post("/api/usrog", $("#loginForm").serialize(), function (code) {
-        //         if(code == 200){
-        //             alert("Registration 완료.");
-        //             location.reload();
-        //         }else{
-        //             alert("Ask to 관리자.");
-        //             location.reload();
-        //         }
-        //     });
-        //
-        // }
+            jQuery.ajaxSetup({async:false});
+            $.get("/api/cntrd", function(result) {
+
+                    if (result.code == 200) {
+                        const options = {
+                            duration: 5,
+                            suffix: ' clicks!'
+                        };
+                        let demo = new CountUp('clkcnt', result.count, options);
+                        if (!demo.error) {
+                            demo.start();
+                        }
+                    } else {
+                        alert("관리자에게 문의하세요.")
+                    }
+                }
+            );
+        }
+
 
         function countUp() {
 
@@ -282,7 +232,7 @@
                     if (result.code == 200) {
                         const options = {
                             duration: 5,
-                            suffix: ' links created!'
+                            suffix: ' links!'
                         };
                         let demo = new CountUp('myTargetElement', result.count, options);
                         if (!demo.error) {
@@ -302,24 +252,6 @@
             }
         });
 
-        // function shrink() {
-        //     $.post("/api/shlk", {async: false, orl: $("#dis").val()}, function (result) {
-        //
-        //         console.log(result)
-        //         if (result.code ==200 || result.code == 201) {
-        //
-        //             $("#dis").val(result.shortUrl);
-        //             var copyText = document.getElementById("dis");
-        //             copyText.select();
-        //             document.execCommand("copy");
-        //             //alert("Clipboard에 '" + copyText.value + "' is Copied 되었습니다!");
-        //         } else {
-        //             $("#dis").val("");
-        //             $("#dis").attr("placeholder", result.message);
-        //         }
-        //     });
-        //     countUp();
-        // }
 
         function shrinkAll() {
             $.post("/api/shlks", {async: false, murl: $("#originUrlList").val()}, function (result) {
@@ -334,19 +266,6 @@
                     console.log( olist );
                 });
                 $("#shortUrlList").val(olist);
-                /*
-                if (result.code ==200 || result.code == 201) {
-
-                    $("#dis").val(result.shortUrl);
-                    var copyText = document.getElementById("dis");
-                    copyText.select();
-                    document.execCommand("copy");
-                    //alert("Clipboard에 '" + copyText.value + "' is Copied 되었습니다!");
-                } else {
-                    $("#dis").val("");
-                    $("#dis").attr("placeholder", result.message);
-                }
-                 */
             });
             countUp();
         }

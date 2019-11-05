@@ -122,12 +122,16 @@ public class ShortUrlService {
         ShortUrl su = new ShortUrl();
         su.setIdx(getUrlIdx(surl));
         su = surlMapper.getOriginUrl(su);
-        if(su.getHitCnt() <= 255){
-            surlMapper.writeRedirectionLog(su);
-            return su.getOriginUrl();
-        }else{
-            return "/lmt";
-        }
+        surlMapper.writeRedirectionLog(su);
+
+//        if(su.getHitCnt() <= 255){
+//            surlMapper.writeRedirectionLog(su);
+//            return su.getOriginUrl();
+//        }else{
+//            return "/lmt";
+//        }
+
+        return su.getOriginUrl();
 
     }
 
@@ -188,5 +192,12 @@ public class ShortUrlService {
         HttpSession session = req.getSession();
         session.invalidate();
         return 200;
+    }
+
+    public ShortUrl getTotalRedirectionCount() {
+        ShortUrl su = new ShortUrl();
+        su.setCount(surlMapper.getTotalRedirectionCount());
+        su.setCode(200);
+        return su;
     }
 }

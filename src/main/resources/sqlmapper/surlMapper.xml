@@ -39,6 +39,10 @@
         select count(*) from short_url
     </select>
 
+    <select id="getTotalRedirectionCount" resultType="int">
+        select count(*) from short_url_redirectin_log
+    </select>
+
     <insert id="registUser" parameterType="UrlUser">
         insert into short_url_user(email,pw,type)
         values (#{email},#{password},#{type});

@@ -254,7 +254,7 @@
 
 
         function shrinkAll() {
-            $.post("/api/shlks", {async: false, murl: $("#originUrlList").val()}, function (result) {
+            $.post("/api/shlks", {async: false, murl: $("#originUrlList").val(),v:'1'}, function (result) {
                 var olist="";
                 console.log(result);
                 $.each(result, function( index, value ) {

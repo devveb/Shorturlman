@@ -10,7 +10,7 @@
     </sql>
 
 	<insert id="insertOriginUrl" parameterType="ShortUrl" useGeneratedKeys="true" keyColumn="idx" keyProperty="idx">
-        insert into short_url(origin_url,usr_idx) values (#{originUrl},#{uidx})
+        insert into short_url(origin_url,usr_idx,in_type) values (#{originUrl},#{uidx},#{channel})
     </insert>
 
     <update id="updateshortUrl" parameterType="ShortUrl">

@@ -8,5 +8,6 @@ public class Common  {
     private String message;
     private int code;
     private int count;
+    private String channel;
 
 }

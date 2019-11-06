@@ -37,6 +37,7 @@ public class ShortUrlService {
 
         String origin = req.getParameter("orl").trim();
         uu.setOriginUrl(origin);
+        uu.setChannel(req.getParameter("v"));
         return shinkProcess(uu);
     }
 
@@ -48,6 +49,7 @@ public class ShortUrlService {
                 //ShortUrl su = new ShortUrl();
                 UrlUser uu = new UrlUser();
                 //uu.setUidx(user.getUidx());
+                uu.setChannel(req.getParameter("v"));
                 uu.setOriginUrl(originUrl);
                 uuList.add(shinkProcess(uu));
             }

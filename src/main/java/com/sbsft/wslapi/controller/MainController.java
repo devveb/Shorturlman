@@ -37,4 +37,11 @@ public class MainController {
     public String redirect(@PathVariable("surl") String surl){
         return "redirect:"+surlService.getOriginUrl(surl);
     }
+
+    @GetMapping("/policy")
+    public String getPolicy(){
+        return "policy";
+    }
+
+
 }

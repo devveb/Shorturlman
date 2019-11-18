@@ -27,4 +27,6 @@ public interface ShortUrlMapper {
     void writeRedirectionLog(ShortUrl su);
 
     int getTotalRedirectionCount();
+
+    void writeTryLog(String tryUrl);
 }

@@ -43,5 +43,10 @@ public class MainController {
         return "policy";
     }
 
+    @GetMapping("/notfound")
+    public String getNotfound(){
+        return "notfound";
+    }
+
 
 }

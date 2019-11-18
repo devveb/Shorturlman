@@ -132,8 +132,14 @@ public class ShortUrlService {
 //        }else{
 //            return "/lmt";
 //        }
+        if(su != null){
+            return su.getOriginUrl();
+        }else{
 
-        return su.getOriginUrl();
+            surlMapper.writeTryLog(surl);
+            return "/notfound";
+        }
+
 
     }
 

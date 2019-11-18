@@ -50,7 +50,7 @@
                     <div class="row">
                         <div class="col-7">
                             <div class="form-group">
-                                <textarea class="form-control" id="originUrlList" rows="10" placeholder="Enter URLs like below ... &#10; http://lifeissho.rt&#10; https://sourl.is"></textarea>
+                                <textarea class="form-control" id="originUrlList" rows="10" placeholder="http://lifeissho.rt                                                                                                            https://sourl.is"></textarea>
                             </div>
                         </div>
                         <div class="col-5">
@@ -170,8 +170,8 @@
             
             counting("/api/cntrd",' clicks!',12,'clkcnt');
             counting("/api/cntlink",' links!',7,'linkcnt');
-            setInterval(function() {counting("/api/cntlink",' links!',7,'linkcnt')}, 8 * 1000);
-            setInterval(function() {counting("/api/cntrd",' clicks!',12,'clkcnt')}, 13 * 1000);
+            setInterval(function() {counting("/api/cntlink",' links!',8,'linkcnt')}, 24 * 1000);
+            setInterval(function() {counting("/api/cntrd",' clicks!',12,'clkcnt')}, 24 * 1000);
             
         });
 

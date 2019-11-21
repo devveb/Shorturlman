@@ -124,8 +124,7 @@ public class ShortUrlService {
         ShortUrl su = new ShortUrl();
         su.setIdx(getUrlIdx(surl));
         su = surlMapper.getOriginUrl(su);
-        surlMapper.writeRedirectionLog(su);
-
+        
 //        if(su.getHitCnt() <= 255){
 //            surlMapper.writeRedirectionLog(su);
 //            return su.getOriginUrl();
@@ -133,6 +132,7 @@ public class ShortUrlService {
 //            return "/lmt";
 //        }
         if(su != null){
+            surlMapper.writeRedirectionLog(su);
             return su.getOriginUrl();
         }else{
 

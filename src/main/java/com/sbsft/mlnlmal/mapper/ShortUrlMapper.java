@@ -1,7 +1,7 @@
-package com.sbsft.wslapi.mapper;
+package com.sbsft.mlnlmal.mapper;
 
-import com.sbsft.wslapi.domain.ShortUrl;
-import com.sbsft.wslapi.domain.UrlUser;
+import com.sbsft.mlnlmal.domain.ShortUrl;
+import com.sbsft.mlnlmal.domain.UrlUser;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

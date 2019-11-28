@@ -9,7 +9,7 @@ spring:
 
 mybatis:
     mapper-locations: classpath*:sqlmapper/*.xml
-    type-aliases-package: com.sbsft.wslapi.domain
+    type-aliases-package: com.sbsft.mlnlmal.domain
     configuration:
         map-underscore-to-camel-case: true
         default-fetch-size: 20

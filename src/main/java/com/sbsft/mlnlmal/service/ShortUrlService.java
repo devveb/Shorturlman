@@ -1,10 +1,12 @@
-package com.sbsft.wslapi.service;
+package com.sbsft.mlnlmal.service;
 
-import com.sbsft.wslapi.domain.ShortUrl;
-import com.sbsft.wslapi.domain.UrlUser;
-import com.sbsft.wslapi.mapper.ShortUrlMapper;
+import com.sbsft.mlnlmal.domain.ShortUrl;
+import com.sbsft.mlnlmal.domain.UrlUser;
+import com.sbsft.mlnlmal.mapper.ShortUrlMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -120,8 +122,10 @@ public class ShortUrlService {
 
     }
 
-    public String getOriginUrl(String surl) {
+    public void getOriginUrl(String surl, Model model) {
         ShortUrl su = new ShortUrl();
+
+
         su.setIdx(getUrlIdx(surl));
         su = surlMapper.getOriginUrl(su);
 
@@ -133,14 +137,14 @@ public class ShortUrlService {
 //        }
         if(su != null){
             surlMapper.writeRedirectionLog(su);
-            return su.getOriginUrl();
+            model.addAttribute("rurl",su.getOriginUrl());
+            //return su.getOriginUrl();
         }else{
 
             surlMapper.writeTryLog(surl);
-            return "/notfound";
+            model.addAttribute("rurl","http://mlnlmal.ml/notfound");
+            //return "/notfound";
         }
-
-
     }
 
     public ShortUrl getTotalLinkCount() {

@@ -1,4 +1,4 @@
-package com.sbsft.wslapi.mapper;
+package com.sbsft.mlnlmal.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 

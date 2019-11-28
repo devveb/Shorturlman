@@ -1,8 +1,8 @@
-package com.sbsft.wslapi.controller;
+package com.sbsft.mlnlmal.controller;
 
-import com.sbsft.wslapi.domain.ShortUrl;
-import com.sbsft.wslapi.domain.UrlUser;
-import com.sbsft.wslapi.service.ShortUrlService;
+import com.sbsft.mlnlmal.domain.ShortUrl;
+import com.sbsft.mlnlmal.domain.UrlUser;
+import com.sbsft.mlnlmal.service.ShortUrlService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -66,10 +66,5 @@ public class ApiController {
     public int userLogout(HttpServletRequest req){
         return surlService.logoutUser(req);
     }
-
-
-
-
-
 
 }

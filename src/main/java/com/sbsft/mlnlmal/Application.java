@@ -1,4 +1,4 @@
-package com.sbsft.wslapi;
+package com.sbsft.mlnlmal;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

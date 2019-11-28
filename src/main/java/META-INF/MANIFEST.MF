@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
-Main-Class: com.sbsft.wslapi.Application
+Main-Class: com.sbsft.mlnlmal.Application
 

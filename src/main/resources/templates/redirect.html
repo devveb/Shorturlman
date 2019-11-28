@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="무료 단축 URL,free short url,url,minimize url,free" name="description">
+    <meta content="" name="author">
+
+    <title>mlnlmal - minimize your url</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}"/>
+    <!-- Custom fonts for this template -->
+    <link rel="stylesheet" th:href="@{/vendor/fontawesome-free/css/all.min.css}"/>
+    <link rel="stylesheet" th:href="@{/vendor/simple-line-icons/css/simple-line-icons.css}"/>
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet"
+          type="text/css">
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" th:href="@{/css/landing-page.min.css}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-151667624-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-151667624-1');
+</script>
+<input type="hidden" th:value="${rurl}" id="rurl">
+<script type="text/javascript">
+    window.location.replace($("#rurl").val());
+</script>
+
+</html>

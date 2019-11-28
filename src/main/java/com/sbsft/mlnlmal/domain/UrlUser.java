@@ -1,4 +1,4 @@
-package com.sbsft.wslapi.domain;
+package com.sbsft.mlnlmal.domain;
 
 import lombok.Data;
 

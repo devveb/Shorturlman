@@ -1,11 +1,12 @@
-package com.sbsft.wslapi.controller;
+package com.sbsft.mlnlmal.controller;
 
-import com.sbsft.wslapi.service.ShortUrlService;
+import com.sbsft.mlnlmal.service.ShortUrlService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -34,8 +35,10 @@ public class MainController {
 
     @CrossOrigin
     @GetMapping("/{surl}")
-    public String redirect(@PathVariable("surl") String surl){
-        return "redirect:"+surlService.getOriginUrl(surl);
+    public String redirect(@PathVariable("surl") String surl, Model model){
+        surlService.getOriginUrl(surl,model);
+        return "redirect";
+//        return "redirect:"+surlService.getOriginUrl(surl,model);
     }
 
     @GetMapping("/policy")

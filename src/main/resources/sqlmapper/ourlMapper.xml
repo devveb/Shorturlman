@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sbsft.mlnlmal.mapper.OUrlMapper">
+
+    <select id="getOurlList" resultType="Ourlink">
+        select
+        ul.title
+        ,su.short_url as shortUrl
+        ,ul.likeCnt
+        ,ul.rdate
+        from urlink_info ul
+        left outer join short_url su
+        on ul.link_idx = su.idx
+        where ul.shareYN = 1
+        order by ul.mdate desc
+    </select>
+
+    <insert id="writeTryLog" parameterType="String">
+        insert into short_url_try_log(try_url) values(#{tryUrl})
+    </insert>
+
+    <insert id="insertLinkShareInfo" parameterType="Ourlink">
+        insert into urlink_info(link_idx,title,summery) values (#{linkIdx},#{title},#{desc})
+        on duplicate key update
+        mdate = now()
+
+    </insert>
+</mapper>

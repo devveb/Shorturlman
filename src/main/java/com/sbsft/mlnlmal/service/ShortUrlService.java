@@ -1,18 +1,25 @@
 package com.sbsft.mlnlmal.service;
 
+import com.sbsft.mlnlmal.domain.Ourlink;
 import com.sbsft.mlnlmal.domain.ShortUrl;
 import com.sbsft.mlnlmal.domain.UrlUser;
 import com.sbsft.mlnlmal.mapper.ShortUrlMapper;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static java.rmi.server.LogStream.log;
 
 @Service
 public class ShortUrlService {
@@ -35,7 +42,7 @@ public class ShortUrlService {
         }else{
             uu = (UrlUser) req.getSession().getAttribute("user");
         }
-
+        //ShortUrl su = new ShortUrl();
 
         String origin = req.getParameter("orl").trim();
         uu.setOriginUrl(origin);
@@ -45,6 +52,7 @@ public class ShortUrlService {
 
     public List<UrlUser> shrinkUrlList(HttpServletRequest req) {
         List<UrlUser> uuList = new ArrayList<>();
+        //List<ShortUrl> uuList = new ArrayList<>();
         UrlUser user = (UrlUser) req.getSession().getAttribute("user");
         for (String originUrl : urlSeparator(req)){
             if(originUrl.length() > 0){
@@ -53,11 +61,36 @@ public class ShortUrlService {
                 //uu.setUidx(user.getUidx());
                 uu.setChannel(req.getParameter("v"));
                 uu.setOriginUrl(originUrl);
-                uuList.add(shinkProcess(uu));
+                uu = shinkProcess(uu);
+                uuList.add(uu);
+
+                if(req.getParameter("s").toString().equals("1")) linkShareProcess(uu);
             }
         }
         return uuList;
 
+    }
+
+    private void linkShareProcess(ShortUrl uu) {
+
+        Ourlink ourlink = new Ourlink();
+        ourlink.setLinkIdx(uu.getIdx());
+
+        Document doc = null;
+        try {
+            doc = Jsoup.connect(uu.getOriginUrl()).get();
+            Elements metaOgDesc = doc.select("meta[og:description]");
+
+
+            ourlink.setTitle(doc.title());
+            ourlink.setDesc(metaOgDesc.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+            ourlink.setTitle("Untitle");
+            ourlink.setDesc("Unknown");
+        }
+
+        surlMapper.insertLinkShareInfo(ourlink);
     }
 
     private String[] urlSeparator(HttpServletRequest req) {
@@ -67,6 +100,7 @@ public class ShortUrlService {
 
 
     private UrlUser shinkProcess(UrlUser su){
+
         su.setMessage(null);
         if(!su.getOriginUrl().startsWith("http://")&&!su.getOriginUrl().startsWith("https://")){
             su.setMessage("can not find 'http://' or 'https://' 를 찾을수 없습니다.");
@@ -90,6 +124,7 @@ public class ShortUrlService {
             return su;
         }else{
             su = surlMapper.getShortUrlByOriginUrl(su);
+            su.setIdx(su.getIdx());
             su.setMessage("reuse");
             su.setCode(201);
             return su;

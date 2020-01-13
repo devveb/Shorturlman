@@ -70,14 +70,24 @@
                 </div>
                 <div class="col-xl-9 mx-auto">
                     <div class="row">
-                        <div class="col-7" >
+                        <div class="col-3" >
+                            <button class="btn btn-block btn-lg btn-outline-light" id="shrbtn" onclick="shareAll()" type="button">
+                                Keep it private!
+                            </button>
+                        </div>
+                        <div class="col-4" >
                             <button class="btn btn-block btn-lg btn-outline-light" onclick="shrinkAll()" type="button">
                                 Make it short!
                             </button>
                         </div>
-                        <div class="col-5">
+                        <div class="col-3">
+                            <button class="btn btn-block btn-lg btn-outline-light" onclick="goToOurlink();" type="button">
+                                See Our Links!
+                            </button>
+                        </div>
+                        <div class="col-2">
                             <button class="btn btn-block btn-lg btn-outline-light" onclick="goToPlugin();" type="button">
-                                Get plugin!
+                                Plug-in
                             </button>
                         </div>
                     </div>
@@ -98,7 +108,7 @@
     <section class="features-icons bg-light text-center">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4">
+                <div class="col-lg-3">
                     <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
                         <div class="features-icons-icon d-flex">
                             <i class="icon-link m-auto text-primary"></i>
@@ -107,7 +117,7 @@
                         <p class="lead mb-0">기~~인URL 보기 편하게 짧게!</p>
                     </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-3">
                     <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
                         <div class="features-icons-icon d-flex">
                             <i class="icon-control-forward m-auto text-primary"></i>
@@ -116,7 +126,7 @@
                         <p class="lead mb-0">여러개의 URL도 한 번 클릭으로 단축!</p>
                     </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-3">
                     <div class="features-icons-item mx-auto mb-0 mb-lg-3">
                         <div class="features-icons-icon d-flex">
                             <i class="icon-chart m-auto text-primary"></i>
@@ -124,6 +134,16 @@
                         <h3>분석이 편한 URL</h3>
                         <p class="lead mb-0">단축 URL 클릭통계!</p>
                         <p class="lead mb-0">(별도문의)</p>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="features-icons-item mx-auto mb-0 mb-lg-3">
+                        <div class="features-icons-icon d-flex">
+                            <i class="icon-share m-auto text-primary"></i>
+                        </div>
+                        <h3>Url Share하기</h3>
+                        <p class="lead mb-0">URL 공유를 통한 Community!</p>
+                        <p class="lead mb-0"><a href="http://ourlin.gq/" target="_blank">OurLinks!</a></p>
                     </div>
                 </div>
             </div>
@@ -173,9 +193,9 @@
 
     <script th:src="@{/js/countUp.min.js}"></script>
     <script>
-
+        var shareFlag = 0;
         $(function() {
-            
+
             counting("/api/cntrd",' clicks!',12,'clkcnt');
             counting("/api/cntlink",' links!',7,'linkcnt');
             setInterval(function() {counting("/api/cntlink",' links!',8,'linkcnt')}, 24 * 1000);
@@ -208,6 +228,10 @@
                 shrink();
             }
         });
+
+        function goToOurlink(){
+            window.open('http://ourlin.gq/');
+        }
         
         function goToPlugin() {
             console.log(navigator.userAgent);
@@ -243,11 +267,22 @@
 
         }
 
+        function shareAll() {
+            if(shareFlag == 0){
+                shareFlag = 1;
+                $("#shrbtn").removeClass('btn-outline-light').addClass('btn-light').text('Let world see!');
+            }else if(shareFlag == 1){
+                shareFlag = 0;
+                $("#shrbtn").removeClass('btn-light').addClass('btn-outline-light').text('Keep it secret!');
+            }
+
+        }
+
 
         function shrinkAll() {
-            $.post("/api/shlks", {async: false, murl: $("#originUrlList").val(),v:'1'}, function (result) {
+            $.post("/api/shlks", {async: false, murl: $("#originUrlList").val(),v:'1',s:shareFlag}, function (result) {
                 var olist="";
-                console.log(result);
+
                 $.each(result, function( index, value ) {
                     if(value.code == 200 || value.code ==201){
                         olist = olist+value.shortUrl+'\n';

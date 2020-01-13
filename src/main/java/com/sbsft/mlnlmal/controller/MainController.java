@@ -28,6 +28,12 @@ public class MainController {
     }
 
     @CrossOrigin
+    @GetMapping("/ourlink")
+    public String ourlink(HttpServletRequest req, Model model){
+        return "index";
+    }
+
+    @CrossOrigin
     @GetMapping("/lmt")
     public String limit(HttpServletRequest req, Model model){
         return "limit";

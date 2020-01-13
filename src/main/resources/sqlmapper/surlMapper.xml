@@ -61,4 +61,11 @@
     <insert id="writeTryLog" parameterType="String">
         insert into short_url_try_log(try_url) values(#{tryUrl})
     </insert>
+
+    <insert id="insertLinkShareInfo" parameterType="Ourlink">
+        insert into urlink_info(link_idx,title) values (#{linkIdx},#{title})
+        on duplicate key update
+        mdate = now()
+
+    </insert>
 </mapper>

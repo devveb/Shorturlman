@@ -1,5 +1,6 @@
 package com.sbsft.mlnlmal.mapper;
 
+import com.sbsft.mlnlmal.domain.Ourlink;
 import com.sbsft.mlnlmal.domain.ShortUrl;
 import com.sbsft.mlnlmal.domain.UrlUser;
 import org.apache.ibatis.annotations.Mapper;
@@ -29,4 +30,6 @@ public interface ShortUrlMapper {
     int getTotalRedirectionCount();
 
     void writeTryLog(String tryUrl);
+
+    void insertLinkShareInfo(Ourlink ourlink);
 }

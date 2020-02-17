@@ -4,15 +4,21 @@
 
     <select id="getOurlList" resultType="Ourlink">
         select
-        ul.title
-        ,su.short_url as shortUrl
-        ,ul.likeCnt
-        ,ul.rdate
-        from urlink_info ul
-        left outer join short_url su
-        on ul.link_idx = su.idx
-        where ul.shareYN = 1
-        order by ul.mdate desc
+            ul.title
+            ,su.short_url as shortUrl
+            ,ul.likeCnt
+            ,su.hit_cnt as hitCnt
+            ,date_format(ul.mdate,'%Y-%m-%d %h:%i') as mdate
+        from
+            urlink_info ul
+        left outer join
+            short_url su
+        on
+            ul.link_idx = su.idx
+        where
+            ul.shareYN = 1
+        order by
+            ul.mdate desc
     </select>
 
     <insert id="writeTryLog" parameterType="String">

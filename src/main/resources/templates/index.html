@@ -58,12 +58,12 @@
                     <div class="row">
                         <div class="col-7">
                             <div class="form-group">
-                                <textarea class="form-control" id="originUrlList" rows="10" placeholder="http://lifeissho.rt                                                                                                            https://sourl.is"></textarea>
+                                <textarea class="form-control" id="originUrlList" rows="10" placeholder="put urls here.                                                                                                            click Short!"></textarea>
                             </div>
                         </div>
                         <div class="col-5">
                             <div class="form-group">
-                                <textarea class="form-control" id="shortUrlList" rows="10" placeholder="see what happen ..." readonly="readonly"></textarea>
+                                <textarea class="form-control" id="shortUrlList" rows="10" placeholder="take it+                                                                                                                     share it#" readonly="readonly"></textarea>
                             </div>
                         </div>
                     </div>
@@ -72,22 +72,22 @@
                     <div class="row">
                         <div class="col-3" >
                             <button class="btn btn-block btn-lg btn-outline-light" id="shrbtn" onclick="shareAll()" type="button">
-                                Keep it private!
+                                Shy...
                             </button>
                         </div>
                         <div class="col-4" >
                             <button class="btn btn-block btn-lg btn-outline-light" onclick="shrinkAll()" type="button">
-                                Make it short!
+                                Short!
                             </button>
                         </div>
                         <div class="col-3">
                             <button class="btn btn-block btn-lg btn-outline-light" onclick="goToOurlink();" type="button">
-                                See Our Links!
+                                Links#
                             </button>
                         </div>
                         <div class="col-2">
-                            <button class="btn btn-block btn-lg btn-outline-light" onclick="goToPlugin();" type="button">
-                                Plug-in
+                            <button class="btn btn-block btn-lg btn-outline-light" onclick="goToPlugin();" type="button" title="get plug-in">
+                                Add+
                             </button>
                         </div>
                     </div>
@@ -104,6 +104,7 @@
     </header>
     <div style="float: right;">
         Photo by: <a style="background-color:black;color:white;text-decoration:none;padding:4px 6px;font-family:-apple-system, BlinkMacSystemFont, &quot;San Francisco&quot;, &quot;Helvetica Neue&quot;, Helvetica, Ubuntu, Roboto, Noto, &quot;Segoe UI&quot;, Arial, sans-serif;font-size:12px;font-weight:bold;line-height:1.2;display:inline-block;border-radius:3px" href="https://unsplash.com/@jeremythomasphoto?utm_medium=referral&amp;utm_campaign=photographer-credit&amp;utm_content=creditBadge" target="_blank" rel="noopener noreferrer" title="Download free do whatever you want high-resolution photos from Jeremy Thomas"><span style="display:inline-block;padding:2px 3px"><svg xmlns="http://www.w3.org/2000/svg" style="height:12px;width:auto;position:relative;vertical-align:middle;top:-2px;fill:white" viewBox="0 0 32 32"><title>unsplash-logo</title><path d="M10 9V0h12v9H10zm12 5h10v18H0V14h10v9h12v-9z"></path></svg></span><span style="display:inline-block;padding:2px 3px">Jeremy Thomas</span></a>
+
     </div>
     <section class="features-icons bg-light text-center">
         <div class="container">
@@ -113,8 +114,8 @@
                         <div class="features-icons-icon d-flex">
                             <i class="icon-link m-auto text-primary"></i>
                         </div>
-                        <h3 onclick="">보기 편한 URL</h3>
-                        <p class="lead mb-0">기~~인URL 보기 편하게 짧게!</p>
+                        <h3 onclick="">Beutiful URL</h3>
+                        <p class="lead mb-0">긴 URL 보기 편하게 짧게!</p>
                     </div>
                 </div>
                 <div class="col-lg-3">
@@ -123,7 +124,7 @@
                             <i class="icon-control-forward m-auto text-primary"></i>
                         </div>
                         <h3>만들기 편한 URL</h3>
-                        <p class="lead mb-0">여러개의 URL도 한 번 클릭으로 단축!</p>
+                        <p class="lead mb-0">여러개의 URL도 한 번에!</p>
                     </div>
                 </div>
                 <div class="col-lg-3">
@@ -132,8 +133,7 @@
                             <i class="icon-chart m-auto text-primary"></i>
                         </div>
                         <h3>분석이 편한 URL</h3>
-                        <p class="lead mb-0">단축 URL 클릭통계!</p>
-                        <p class="lead mb-0">(별도문의)</p>
+                        <p class="lead mb-0">URL Analytics - Click Contact!</p>
                     </div>
                 </div>
                 <div class="col-lg-3">
@@ -142,8 +142,8 @@
                             <i class="icon-share m-auto text-primary"></i>
                         </div>
                         <h3>Url Share하기</h3>
-                        <p class="lead mb-0">URL 공유를 통한 Community!</p>
-                        <p class="lead mb-0"><a href="http://ourlin.gq/" target="_blank">OurLinks!</a></p>
+
+                        <p class="lead mb-0">Visit <a href="http://ourlin.gq/" target="_blank">OurLinks!</a></p>
                     </div>
                 </div>
             </div>
@@ -185,7 +185,7 @@
 <!--                            <a href="#">Privacy Policy</a>-->
 <!--                        </li>-->
                     </ul>
-                    <p class="text-muted small mb-4 mb-lg-0">&copy; mlnlmal.ml 2019.</p>
+                    <p class="text-muted small mb-4 mb-lg-0">&copy; mlnlmal.ml 2020.</p>
                 </div>
             </div>
         </div>
@@ -196,10 +196,10 @@
         var shareFlag = 0;
         $(function() {
 
-            counting("/api/cntrd",' clicks!',12,'clkcnt');
-            counting("/api/cntlink",' links!',7,'linkcnt');
-            setInterval(function() {counting("/api/cntlink",' links!',8,'linkcnt')}, 24 * 1000);
-            setInterval(function() {counting("/api/cntrd",' clicks!',12,'clkcnt')}, 24 * 1000);
+            counting("/api/cntrd",' clicks!',9,'clkcnt');
+            counting("/api/cntlink",' links!',3,'linkcnt');
+            setInterval(function() {counting("/api/cntlink",' links!',3,'linkcnt')}, 24 * 1000);
+            setInterval(function() {counting("/api/cntrd",' clicks!',9,'clkcnt')}, 24 * 1000);
             
         });
 
@@ -270,10 +270,10 @@
         function shareAll() {
             if(shareFlag == 0){
                 shareFlag = 1;
-                $("#shrbtn").removeClass('btn-outline-light').addClass('btn-light').text('Let world see!');
+                $("#shrbtn").text('Share...');
             }else if(shareFlag == 1){
                 shareFlag = 0;
-                $("#shrbtn").removeClass('btn-light').addClass('btn-outline-light').text('Keep it secret!');
+                $("#shrbtn").text('Shy...');
             }
 
         }

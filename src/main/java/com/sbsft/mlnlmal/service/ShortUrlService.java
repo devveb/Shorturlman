@@ -47,7 +47,9 @@ public class ShortUrlService {
         String origin = req.getParameter("orl").trim();
         uu.setOriginUrl(origin);
         uu.setChannel(req.getParameter("v"));
-        return shinkProcess(uu);
+        uu = shinkProcess(uu);
+        if(req.getParameter("s").toString().equals("1")) linkShareProcess(uu);
+        return uu;
     }
 
     public List<UrlUser> shrinkUrlList(HttpServletRequest req) {
@@ -81,8 +83,11 @@ public class ShortUrlService {
             doc = Jsoup.connect(uu.getOriginUrl()).get();
             Elements metaOgDesc = doc.select("meta[og:description]");
 
-
-            ourlink.setTitle(doc.title());
+            if(doc.title() != ""){
+                ourlink.setTitle(doc.title());
+            }else{
+                ourlink.setTitle("Pandora Box(Unknown)");
+            }
             ourlink.setDesc(metaOgDesc.toString());
         } catch (IOException e) {
             e.printStackTrace();

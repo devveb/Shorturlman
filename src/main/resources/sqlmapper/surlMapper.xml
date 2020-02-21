@@ -68,4 +68,12 @@
         mdate = now()
 
     </insert>
+
+    <select id="getBanList" resultType="ShortUrl">
+        select * from short_url_ban_domain
+    </select>
+
+    <insert id="insertBanTryList" parameterType="UrlUser">
+        insert into short_url_ban_list(url) values (#{originUrl})
+    </insert>
 </mapper>

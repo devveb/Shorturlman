@@ -36,6 +36,7 @@ public class ShortUrlService {
 
     @Transactional
     public UrlUser shrinkUrl(HttpServletRequest req) {
+        List<ShortUrl> banList = surlMapper.getBanList();
         UrlUser uu = null;
         if(req.getSession().getAttribute("user") == null){
             uu = new UrlUser();
@@ -47,30 +48,45 @@ public class ShortUrlService {
         String origin = req.getParameter("orl").trim();
         uu.setOriginUrl(origin);
         uu.setChannel(req.getParameter("v"));
-        uu = shinkProcess(uu);
+        uu = shinkProcess(uu,banList);
         if(req.getParameter("s").toString().equals("1")) linkShareProcess(uu);
         return uu;
     }
 
     public List<UrlUser> shrinkUrlList(HttpServletRequest req) {
         List<UrlUser> uuList = new ArrayList<>();
-        //List<ShortUrl> uuList = new ArrayList<>();
+        List<ShortUrl> banList = surlMapper.getBanList();
+
+
         UrlUser user = (UrlUser) req.getSession().getAttribute("user");
         for (String originUrl : urlSeparator(req)){
             if(originUrl.length() > 0){
                 //ShortUrl su = new ShortUrl();
                 UrlUser uu = new UrlUser();
-                //uu.setUidx(user.getUidx());
-                uu.setChannel(req.getParameter("v"));
-                uu.setOriginUrl(originUrl);
-                uu = shinkProcess(uu);
-                uuList.add(uu);
 
-                if(req.getParameter("s").toString().equals("1")) linkShareProcess(uu);
+                uu.setOriginUrl(originUrl);
+                //uu = banProcess(uu,banList);
+
+                //if(uu.isBan()){
+                    uu.setChannel(req.getParameter("v"));
+                    uu = shinkProcess(uu,banList);
+                    uuList.add(uu);
+                    if(req.getParameter("s").toString().equals("1"))
+                        linkShareProcess(uu);
+                //}
             }
         }
         return uuList;
 
+    }
+
+    private UrlUser banProcess(UrlUser uu, List<ShortUrl> banList) {
+        for(ShortUrl banDom : banList){
+            if(uu.getOriginUrl().contains(banDom.getDomain())) {
+                uu.setBan(false);
+            }
+        }
+        return uu;
     }
 
     private void linkShareProcess(ShortUrl uu) {
@@ -104,7 +120,7 @@ public class ShortUrlService {
     }
 
 
-    private UrlUser shinkProcess(UrlUser su){
+    private UrlUser shinkProcess(UrlUser su,List<ShortUrl> banList){
 
         su.setMessage(null);
         if(!su.getOriginUrl().startsWith("http://")&&!su.getOriginUrl().startsWith("https://")){
@@ -118,6 +134,17 @@ public class ShortUrlService {
             su.setCode(507);
             return su;
         }
+
+        for(ShortUrl ban : banList){
+            if(su.getOriginUrl().contains(ban.getDomain())){
+                surlMapper.insertBanTryList(su);
+                su.setMessage(ban.getReason());
+                su.setCode(508);
+                return su;
+            }
+        }
+
+
         su.setOriginUrl(su.getOriginUrl());
 
         if(surlMapper.cntOriginUrl(su) < 1){
@@ -136,7 +163,6 @@ public class ShortUrlService {
         }
 
     }
-
 
 
     private String shrinkUrl(int idx){

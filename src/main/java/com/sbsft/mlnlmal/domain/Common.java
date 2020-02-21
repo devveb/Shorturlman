@@ -9,5 +9,6 @@ public class Common  {
     private int code;
     private int count;
     private String channel;
+    private String reason;
 
 }

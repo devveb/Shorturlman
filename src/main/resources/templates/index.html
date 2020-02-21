@@ -118,22 +118,22 @@
                         <p class="lead mb-0">긴 URL 보기 편하게 짧게!</p>
                     </div>
                 </div>
-                <div class="col-lg-3">
-                    <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-                        <div class="features-icons-icon d-flex">
-                            <i class="icon-control-forward m-auto text-primary"></i>
-                        </div>
-                        <h3>만들기 편한 URL</h3>
-                        <p class="lead mb-0">여러개의 URL도 한 번에!</p>
-                    </div>
-                </div>
+<!--                <div class="col-lg-3">-->
+<!--                    <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">-->
+<!--                        <div class="features-icons-icon d-flex">-->
+<!--                            <i class="icon-control-forward m-auto text-primary"></i>-->
+<!--                        </div>-->
+<!--                        <h3>만들기 편한 URL</h3>-->
+<!--                        <p class="lead mb-0">여러개의 URL도 한 번에!</p>-->
+<!--                    </div>-->
+<!--                </div>-->
                 <div class="col-lg-3">
                     <div class="features-icons-item mx-auto mb-0 mb-lg-3">
                         <div class="features-icons-icon d-flex">
                             <i class="icon-chart m-auto text-primary"></i>
                         </div>
                         <h3>분석이 편한 URL</h3>
-                        <p class="lead mb-0">URL Analytics - Click Contact!</p>
+                        <p class="lead mb-0">URL Analytics, <a href="mailto:dev.taek@gmail.com">Ask me!</a></p>
                     </div>
                 </div>
                 <div class="col-lg-3">
@@ -142,8 +142,19 @@
                             <i class="icon-share m-auto text-primary"></i>
                         </div>
                         <h3>Url Share하기</h3>
-
                         <p class="lead mb-0">Visit <a href="http://ourlin.gq/" target="_blank">OurLinks!</a></p>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="features-icons-item mx-auto mb-0 mb-lg-3">
+                        <a href="http://mlnlmal.ml/bYF" target="_blank">
+                            <div class="features-icons-icon d-flex">
+                                <i class="icon-control-play m-auto text-primary"></i>
+                            </div>
+                        </a>
+                        <h3>How to use</h3>
+
+                        <p class="lead mb-0">Watch it now!</p>
                     </div>
                 </div>
             </div>
@@ -180,10 +191,10 @@
                         <li class="list-inline-item">
                             <a href="/policy" target="_blank">Terms of Use</a>
                         </li>
-<!--                        <li class="list-inline-item">&sdot;</li>-->
-<!--                        <li class="list-inline-item">-->
-<!--                            <a href="#">Privacy Policy</a>-->
-<!--                        </li>-->
+                        <li class="list-inline-item">&sdot;</li>
+                        <li class="list-inline-item">
+                            <a href="/notice" target="_blank">Notice</a>
+                        </li>
                     </ul>
                     <p class="text-muted small mb-4 mb-lg-0">&copy; mlnlmal.ml 2020.</p>
                 </div>
@@ -293,7 +304,9 @@
                 });
                 $("#shortUrlList").val(olist);
             });
-            countUp();
+            counting("/api/cntrd",' clicks!',9,'clkcnt');
+            counting("/api/cntlink",' links!',3,'linkcnt');
+
         }
     </script>
 </body>

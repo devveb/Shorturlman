@@ -10,5 +10,7 @@ public class ShortUrl extends Common {
     private int hitCnt;
     private String shareFlag;
     private String regDate;
+    private String domain;
+    private boolean isBan;
 
 }

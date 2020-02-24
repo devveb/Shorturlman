@@ -21,13 +21,7 @@
     <link rel="stylesheet" th:href="@{/css/landing-page.min.css}"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- AdSens-->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script>
-        (adsbygoogle = window.adsbygoogle || []).push({
-            google_ad_client: "ca-pub-7216858733478899",
-            enable_page_level_ads: true
-        });
-    </script>
+    <script data-ad-client="ca-pub-7216858733478899" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151667624-1"></script>
@@ -37,9 +31,16 @@
     gtag('js', new Date());
     gtag('config', 'UA-151667624-1');
 </script>
+
 <input type="hidden" th:value="${rurl}" id="rurl">
 <script type="text/javascript">
-    window.location.replace($("#rurl").val());
+    $(document).ready(function(){
+        if(confirm("go to "+$("#rurl").val()+"로 이동합니다.")){
+            window.location.replace($("#rurl").val());
+        }else{
+            window.location.replace("http://mlnlmal.ml");
+        }
+    });
 </script>
 
 </html>

@@ -70,7 +70,7 @@
     </insert>
 
     <select id="getBanList" resultType="ShortUrl">
-        select * from short_url_ban_domain
+        select * from short_url_ban_domain where banOnOff = 1
     </select>
 
     <insert id="insertBanTryList" parameterType="UrlUser">

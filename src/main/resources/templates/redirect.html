@@ -35,11 +35,13 @@
 <input type="hidden" th:value="${rurl}" id="rurl">
 <script type="text/javascript">
     $(document).ready(function(){
-        if(confirm("go to "+$("#rurl").val()+"로 이동합니다.")){
+        setTimeout(function(){ if(confirm("go to "+$("#rurl").val()+"로 이동합니다.")){
             window.location.replace($("#rurl").val());
         }else{
             window.location.replace("http://mlnlmal.ml");
-        }
+        }; }, 1500);
+
+
     });
 </script>
 

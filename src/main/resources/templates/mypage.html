@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="무료 단축 URL,free short url,url,minimize url,free" name="description">
+    <meta content="" name="author">
+
+    <title>mlnlma! - m!n!m!ze your ur!</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}"/>
+    <!-- Custom fonts for this template -->
+    <link rel="stylesheet" th:href="@{/vendor/fontawesome-free/css/all.min.css}"/>
+    <link rel="stylesheet" th:href="@{/vendor/simple-line-icons/css/simple-line-icons.css}"/>
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet"
+          type="text/css">
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" th:href="@{/css/landing-page.min.css}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- AdSens-->
+    <script data-ad-client="ca-pub-7216858733478899" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-151667624-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-151667624-1');
+</script>
+
+<body>
+    <style>
+        input{
+            vertical-align: middle;
+        }
+    </style>
+    <div class="d-flex flex-column flex-md-row align-items-center p-2 px-md-4 bg-white border-bottom shadow-sm">
+        <h5 class="my-0 mr-md-auto font-weight-normal" onclick="window.location.href='/'">mlnlmal.ml</h5>
+        <nav class="my-2 my-md-0 mr-md-3">
+<!--            <a class="p-2 text-dark" href="#">Features</a>-->
+<!--            <a class="p-2 text-dark" href="#">Enterprise</a>-->
+<!--            <a class="p-2 text-dark" href="#">Support</a>-->
+<!--            <a class="p-2 text-dark" href="#">Pricing</a>-->
+        </nav>
+
+        <form class="form-inline" th:if="${session.size() > 0}" id="sif">
+            <h9 class="my-0 mr-md-auto font-weight-normal">Welcome!</h9>&nbsp&nbsp&nbsp&nbsp<span th:text="${session.user.nick}" class="mx-1"></span><h9 class="mx-1">님</h9>
+            <button type="button" class="btn btn-outline-dark mb-2 mx-1" onclick="so()">My page</button>
+            <button type="button" class="btn btn-outline-dark mb-2" onclick="so()">Sign out</button>
+        </form>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                                Dashboard <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+            </nav>
+
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Dashboard</h1>
+                </div>
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                    <div class="card" style="width: 50%;">
+                        <div class="card-body">
+                            <h5 class="card-title">링크수/Links</h5>
+                            <p class="card-text" style="font-size: xx-large"><span th:text="${linkStat.cnt}"></span>개.</p>
+                        </div>
+                    </div>
+                    <div class="card" style="width: 50%; display: inline;">
+                        <div class="card-body">
+                            <h5 class="card-title">클릭수/Redirect</h5>
+                            <p class="card-text" style="font-size: xx-large"><span th:text="${linkStat.summ}"></span>회.</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <h2>Links</h2>
+                <div class="table-responsive">
+                    <table class="table table-striped table-sm">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Link</th>
+                            <th>등록일/RegDate</th>
+                            <th>클릭수/Redirect</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="list,index : ${urlList}">
+                            <td th:text="${index.index+1}"></td>
+                            <td th:text="${list.shortUrl}"></td>
+                            <td th:text="${list.regDate}">ipsum</td>
+                            <td th:text="${list.hitCnt}">dolor</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <footer class="footer bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
+                    <ul class="list-inline mb-2">
+                        <li class="list-inline-item">
+                            <a href="https://devveb.github.io" target="_blank">About</a>
+                        </li>
+                        <li class="list-inline-item">&sdot;</li>
+                        <li class="list-inline-item">
+                            <a href="mailto:dev.taek@gmail.com">Contact</a>
+                        </li>
+                        <li class="list-inline-item">&sdot;</li>
+                        <li class="list-inline-item">
+                            <a href="/policy" target="_blank">Terms of Use</a>
+                        </li>
+                        <li class="list-inline-item">&sdot;</li>
+                        <li class="list-inline-item">
+                            <a href="/notice" target="_blank">Notice</a>
+                        </li>
+                    </ul>
+                    <p class="text-muted small mb-4 mb-lg-0">&copy; mlnlmal.ml 2020.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        function so() {
+            $.get("/api/usrgo", function (result) {
+                if(result == 200){
+                    window.location.href='/';
+                }else{
+                    window.location.href='/';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

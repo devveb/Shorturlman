@@ -40,6 +40,34 @@
             vertical-align: middle;
         }
     </style>
+    <div class="d-flex flex-column flex-md-row align-items-center p-2 px-md-4 bg-white border-bottom shadow-sm">
+        <h5 class="my-0 mr-md-auto font-weight-normal" onclick="window.location.href='/'">mlnlmal.ml</h5>
+        <nav class="my-2 my-md-0 mr-md-3">
+<!--            <a class="p-2 text-dark" href="#">Features</a>-->
+<!--            <a class="p-2 text-dark" href="#">Enterprise</a>-->
+<!--            <a class="p-2 text-dark" href="#">Support</a>-->
+<!--            <a class="p-2 text-dark" href="#">Pricing</a>-->
+        </nav>
+
+        <form class="form-inline" th:if="${session.isEmpty()}" id="sif">
+            <div class="form-group mx-1 mb-2">
+                <label for="inputId" class="sr-only">email</label>
+                <input type="text" class="form-control" id="inputId" placeholder="email" name="werewp">
+            </div>
+            <div class="form-group mx-1 mb-2">
+                <label for="inputPassword" class="sr-only">Password</label>
+                <input type="password" class="form-control" id="inputPassword" placeholder="password" name="nwebvie">
+            </div>
+            <button type="button" class="btn btn-outline-dark mb-2 mx-1" onclick="sgnin()">Sign in</button>
+            <button type="button" class="btn btn-outline-dark mb-2" onclick="window.location.href = '/signup';">Sign up</button>
+        </form>
+        <form class="form-inline" th:if="${session.size() > 0}" id="mpf" method="post">
+            <input type="hidden" th:value="${session.user.uidx}" name="dbwjdkdlel" id="rodlstlrquf">
+            <h9 class="my-0 mr-md-auto font-weight-normal">Welcome!</h9>&nbsp&nbsp&nbsp&nbsp<span th:text="${session.user.nick}" class="mx-1"></span><h9 class="mx-1">님</h9>
+            <button type="button" class="btn btn-outline-dark mb-2 mx-1" onclick="gmp()">My page</button>
+            <button type="button" class="btn btn-outline-dark mb-2" onclick="so()">Sign out</button>
+        </form>
+    </div>
 
     <header class="masthead text-white text-center" style="padding-top: 5rem;">
         <div class="overlay"></div>
@@ -103,7 +131,7 @@
     <section class="features-icons bg-light text-center">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3">
+                <div class="col-lg-4">
                     <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
                         <div class="features-icons-icon d-flex">
                             <i class="icon-link m-auto text-primary"></i>
@@ -112,30 +140,16 @@
                         <p class="lead mb-0">긴 URL 보기 편하게 짧게!</p>
                     </div>
                 </div>
-<!--                <div class="col-lg-3">-->
-<!--                    <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">-->
-<!--                        <div class="features-icons-icon d-flex">-->
-<!--                            <i class="icon-control-forward m-auto text-primary"></i>-->
-<!--                        </div>-->
-<!--                        <h3>만들기 편한 URL</h3>-->
-<!--                        <p class="lead mb-0">여러개의 URL도 한 번에!</p>-->
-<!--                    </div>-->
-<!--                </div>-->
-                <div class="col-lg-3">
-                    <div class="features-icons-item mx-auto mb-0 mb-lg-3">
-                        <div class="features-icons-icon d-flex">
-                            <i class="icon-chart m-auto text-primary"></i>
-                        </div>
-                        <h3>분석이 편한 URL</h3>
-                    <div class="features-icons-item mx-auto mb-0 mb-lg-3">
+                <div class="col-lg-4">
+                    <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
                         <div class="features-icons-icon d-flex">
                             <i class="icon-share m-auto text-primary"></i>
                         </div>
-                        <h3>Url Share하기</h3>
+                        <h3 onclick="">Url Share하기</h3>
                         <p class="lead mb-0">Visit <a href="http://ourlin.gq/" target="_blank">OurLinks!</a></p>
                     </div>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-4">
                     <div class="features-icons-item mx-auto mb-0 mb-lg-3">
                         <a href="http://mlnlmal.ml/bYF" target="_blank">
                             <div class="features-icons-icon d-flex">
@@ -143,11 +157,10 @@
                             </div>
                         </a>
                         <h3>How to use</h3>
-
-                        <p class="lead mb-0">Watch it!</p>
+                        <p class="lead mb-0"><a href="http://mlnlmal.ml/bYF" target="_blank">Watch it!</a></p>
                     </div>
                 </div>
-            </div>
+
         </div>
     </section>
 
@@ -296,6 +309,32 @@
             });
             counting("/api/cntrd",' clicks!',9,'clkcnt');
             counting("/api/cntlink",' links!',3,'linkcnt');
+
+        }
+
+        function sgnin(){
+            $.post("/api/usrog", $("#sif").serialize(), function (result) {
+                if(result == 200){
+                    window.location.href='/';
+                }else{
+                    window.location.href='/';
+                }
+            });
+        }
+
+        function so() {
+            $.get("/api/usrgo", function (result) {
+                if(result == 200){
+                    window.location.href='/';
+                }else{
+                    window.location.href='/';
+                }
+            });
+        }
+
+        function gmp(){
+            $("#mpf").attr("action","/adm/gmp");
+            $("#mpf").submit();
 
         }
     </script>

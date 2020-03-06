@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -43,8 +44,12 @@ public class MainController {
     @GetMapping("/{surl}")
     public String redirect(@PathVariable("surl") String surl, Model model){
         surlService.getOriginUrl(surl,model);
-        return "redirect";
-//        return "redirect:"+surlService.getOriginUrl(surl,model);
+        return "redirect:"+surlService.getOriginUrl(surl,model);
+    }
+
+    @GetMapping("/signup")
+    public String getSignupForm(){
+        return "signup";
     }
 
     @GetMapping("/policy")
@@ -55,6 +60,12 @@ public class MainController {
     @GetMapping("/notfound")
     public String getNotfound(){
         return "notfound";
+    }
+
+    @PostMapping("/gmp")
+    public String goToMyPage(HttpServletRequest req,Model model){
+        surlService.getLinkStatByUser(req,model);
+        return "mypage";
     }
 
 

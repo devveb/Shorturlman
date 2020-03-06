@@ -7,6 +7,7 @@
         ,short_url as shortUrl
         ,hit_cnt as hitCnt
         ,rdate as regDate
+        ,usr_idx as uidx
     </sql>
 
 	<insert id="insertOriginUrl" parameterType="ShortUrl" useGeneratedKeys="true" keyColumn="idx" keyProperty="idx">
@@ -19,20 +20,21 @@
         where idx = #{idx}
     </update>
 
-    <select id="getOriginUrl" parameterType="ShortUrl" resultType="ShortUrl">
+    <select id="getOriginUrl" parameterType="UrlUser" resultType="UrlUser">
         update short_url set hit_cnt = hit_cnt +1 where idx = #{idx}
         ;
         select <include refid="table_param"/> from short_url where idx = #{idx}
         ;
     </select>
 
-    <select id="cntOriginUrl" parameterType="ShortUrl" resultType="int">
+    <select id="cntOriginUrl" parameterType="UrlUser" resultType="int">
         select count(*) from short_url
         where origin_url = '${originUrl}'
+        and usr_idx = #{uidx}
     </select>
 
     <select id="getShortUrlByOriginUrl" parameterType="ShortUrl" resultType="UrlUser">
-        select <include refid="table_param"/> from short_url where origin_url = #{originUrl} limit 1
+        select <include refid="table_param"/> from short_url where origin_url = #{originUrl} and usr_idx = #{uidx} limit 1
     </select>
 
     <select id="getTotalLinkCount" resultType="int">
@@ -44,8 +46,8 @@
     </select>
 
     <insert id="registUser" parameterType="UrlUser">
-        insert into short_url_user(email,pw,type)
-        values (#{email},#{password},#{type});
+        insert into short_url_user(email,pw,nick)
+        values (#{email},#{password},#{nick});
     </insert>
 
     <insert id="writeRedirectionLog" parameterType="UrlUser">
@@ -53,7 +55,7 @@
     </insert>
 
     <select id="getUserInfo" parameterType="UrlUser" resultType="UrlUser">
-        select idx as uidx,email from short_url_user
+        select idx as uidx,email,nick from short_url_user
         where email = #{email}
         and pw = #{password}
     </select>
@@ -76,4 +78,29 @@
     <insert id="insertBanTryList" parameterType="UrlUser">
         insert into short_url_ban_list(url) values (#{originUrl})
     </insert>
+
+    <select id="checkEmailDup" parameterType="String" resultType="int">
+        select count(*) from urlink_user where email = #{eml}
+    </select>
+
+    <select id="getUrlListByUser" parameterType="int" resultType="ShortUrl">
+        select
+         origin_url as originUrl
+        ,short_url as shortUrl
+        ,hit_cnt as hitCnt
+        ,DATE_FORMAT(rdate,"%Y-%m-%d %h:%m") as regDate
+        from short_url
+        where usr_idx = #{userIdx}
+        and short_url is not null
+    </select>
+
+    <select id="getLinkStatByUser" parameterType="int" resultType="HashMap">
+        select
+            count(*) cnt
+            ,ifnull(sum(hit_cnt),0) summ from short_url
+        where usr_idx = #{userIdx}
+        and short_url is not null
+    </select>
+
+
 </mapper>

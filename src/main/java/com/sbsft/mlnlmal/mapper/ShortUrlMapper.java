@@ -5,6 +5,8 @@ import com.sbsft.mlnlmal.domain.ShortUrl;
 import com.sbsft.mlnlmal.domain.UrlUser;
 import org.apache.ibatis.annotations.Mapper;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
 
 @Mapper
@@ -14,7 +16,7 @@ public interface ShortUrlMapper {
 
     void updateshortUrl(ShortUrl su);
 
-    ShortUrl getOriginUrl(ShortUrl su);
+    UrlUser getOriginUrl(UrlUser su);
 
     int cntOriginUrl(ShortUrl su);
 
@@ -38,4 +40,10 @@ public interface ShortUrlMapper {
     List<ShortUrl> getBanList();
 
     void insertBanTryList(UrlUser su);
+
+    int checkEmailDup(String req);
+
+    List<ShortUrl> getUrlListByUser(int userIdx);
+
+    HashMap<String, Object> getLinkStatByUser(int userIdx);
 }

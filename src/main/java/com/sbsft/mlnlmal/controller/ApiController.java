@@ -48,6 +48,13 @@ public class ApiController {
     }
 
     @CrossOrigin
+    @PostMapping("/usrdc")
+    @ResponseBody
+    public int userDupCheck(HttpServletRequest req){
+        return surlService.userDupCheck(req);
+    }
+
+    @CrossOrigin
     @PostMapping("/usreg")
     @ResponseBody
     public int userRegist(HttpServletRequest req){
@@ -60,11 +67,14 @@ public class ApiController {
     public int userLogin(HttpServletRequest req){
         return surlService.loginUser(req);
     }
+
     @CrossOrigin
     @GetMapping("/usrgo")
-    @ResponseBody
-    public int userLogout(HttpServletRequest req){
-        return surlService.logoutUser(req);
+    //@ResponseBody
+    public String userLogout(HttpServletRequest req){
+        surlService.logoutUser(req);
+        return "redirect:/";
     }
+
 
 }

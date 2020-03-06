@@ -6,7 +6,6 @@ import com.sbsft.mlnlmal.domain.UrlUser;
 import com.sbsft.mlnlmal.mapper.ShortUrlMapper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,9 +16,8 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-
-import static java.rmi.server.LogStream.log;
 
 @Service
 public class ShortUrlService {
@@ -49,7 +47,7 @@ public class ShortUrlService {
         uu.setOriginUrl(origin);
         uu.setChannel(req.getParameter("v"));
         uu = shinkProcess(uu,banList);
-        if(req.getParameter("s").toString().equals("1")) linkShareProcess(uu);
+        if(req.getParameter("s").equals("1")) linkShareProcess(uu);
         return uu;
     }
 
@@ -59,22 +57,40 @@ public class ShortUrlService {
 
 
         UrlUser user = (UrlUser) req.getSession().getAttribute("user");
+
         for (String originUrl : urlSeparator(req)){
-            if(originUrl.length() > 0){
-                //ShortUrl su = new ShortUrl();
                 UrlUser uu = new UrlUser();
 
-                uu.setOriginUrl(originUrl);
-                //uu = banProcess(uu,banList);
+                if(uuList.size() >=1){
+                    if(user == null){
+                        uu.setUidx(0);
+                        uu.setMessage("Multi link job 위해서 Sign in 해주세요.");
+                        uuList.add(uu);
+                    }else{
+                        uu.setUidx(user.getUidx());
+                        uu.setOriginUrl(originUrl);
+                        uu.setChannel(req.getParameter("v"));
+                        uu = shinkProcess(uu,banList);
+                        uuList.add(uu);
 
-                //if(uu.isBan()){
+                        if(req.getParameter("s").equals("1"))
+                            linkShareProcess(uu);
+                    }
+                }else{
+                    if(user == null){
+                        uu.setUidx(0);
+                    }else{
+                        uu.setUidx(user.getUidx());
+                    }
+
+                    uu.setOriginUrl(originUrl);
                     uu.setChannel(req.getParameter("v"));
                     uu = shinkProcess(uu,banList);
                     uuList.add(uu);
-                    if(req.getParameter("s").toString().equals("1"))
+
+                    if(req.getParameter("s").equals("1"))
                         linkShareProcess(uu);
-                //}
-            }
+                }
         }
         return uuList;
 
@@ -115,7 +131,7 @@ public class ShortUrlService {
     }
 
     private String[] urlSeparator(HttpServletRequest req) {
-        String urls = ","+req.getParameter("murl").trim().replace("\n",",");
+        String urls = req.getParameter("murl").trim().replace("\n",",");
         return urls.split(",");
     }
 
@@ -188,28 +204,22 @@ public class ShortUrlService {
 
     }
 
-    public void getOriginUrl(String surl, Model model) {
-        ShortUrl su = new ShortUrl();
+    public String getOriginUrl(String surl, Model model) {
 
+        UrlUser uu = new UrlUser();
 
-        su.setIdx(getUrlIdx(surl));
-        su = surlMapper.getOriginUrl(su);
-
-//        if(su.getHitCnt() <= 255){
-//            surlMapper.writeRedirectionLog(su);
-//            return su.getOriginUrl();
-//        }else{
-//            return "/lmt";
-//        }
-        if(su != null){
-            surlMapper.writeRedirectionLog(su);
-            model.addAttribute("rurl",su.getOriginUrl());
-            //return su.getOriginUrl();
-        }else{
-
+        uu.setIdx(getUrlIdx(surl));
+        uu = surlMapper.getOriginUrl(uu);
+        
+        if(uu != null && uu.getUidx() == 0 && uu.getHitCnt() > 128){
             surlMapper.writeTryLog(surl);
-            model.addAttribute("rurl","http://mlnlmal.ml/notfound");
-            //return "/notfound";
+            return "/lmt";
+        }else if(uu != null && uu.getUidx() != 0){
+            surlMapper.writeRedirectionLog(uu);
+            return uu.getOriginUrl();
+        }else{
+            surlMapper.writeTryLog(surl);
+            return "/notfound";
         }
     }
 
@@ -227,9 +237,10 @@ public class ShortUrlService {
         int code = 999;
 
         try {
-            uu.setEmail(req.getParameter("usrmail"));
-            uu.setPassword(req.getParameter("usrpw"));
-            uu.setType(Integer.parseInt(req.getParameter("usrtyp")));
+            uu.setEmail(req.getParameter("eml"));
+            uu.setPassword(req.getParameter("pw"));
+            uu.setNick(req.getParameter("nn"));
+            //uu.setType(Integer.parseInt(req.getParameter("usrtyp")));
             surlMapper.registUser(uu);
             uu.setCode(200);
             code = 200;
@@ -266,7 +277,7 @@ public class ShortUrlService {
     }
 
     public int logoutUser(HttpServletRequest req) {
-        int code = 999;
+
         HttpSession session = req.getSession();
         session.invalidate();
         return 200;
@@ -277,5 +288,20 @@ public class ShortUrlService {
         su.setCount(surlMapper.getTotalRedirectionCount());
         su.setCode(200);
         return su;
+    }
+
+    public int userDupCheck(HttpServletRequest req) {
+        String eml = req.getParameter("eml");
+        return surlMapper.checkEmailDup(eml);
+    }
+
+    public void getLinkStatByUser(HttpServletRequest req, Model model) {
+        int userIdx = Integer.parseInt(req.getParameter("dbwjdkdlel"));
+        List<ShortUrl> urlList = surlMapper.getUrlListByUser(userIdx);
+        HashMap<String,Object> linkStat = surlMapper.getLinkStatByUser(userIdx);
+
+        model.addAttribute("urlList",urlList);
+        model.addAttribute("linkStat",linkStat);
+
     }
 }

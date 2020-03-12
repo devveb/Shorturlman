@@ -41,7 +41,7 @@
         }
     </style>
     <div class="d-flex flex-column flex-md-row align-items-center p-2 px-md-4 bg-white border-bottom shadow-sm">
-        <h5 class="my-0 mr-md-auto font-weight-normal" onclick="window.location.href='/'">mlnlmal.ml</h5>
+        <h5 class="my-0 mr-md-auto font-weight-normal" onclick="window.location.href='/'" style="cursor: pointer">mlnlmal.ml</h5>
         <nav class="my-2 my-md-0 mr-md-3">
 <!--            <a class="p-2 text-dark" href="#">Features</a>-->
 <!--            <a class="p-2 text-dark" href="#">Enterprise</a>-->
@@ -49,9 +49,10 @@
 <!--            <a class="p-2 text-dark" href="#">Pricing</a>-->
         </nav>
 
-        <form class="form-inline" th:if="${session.size() > 0}" id="sif">
+        <form class="form-inline" th:if="${session.size() > 0}" id="mpf" method="post">
+            <input type="hidden" th:value="${session.user.uidx}" name="dbwjdkdlel" id="rodlstlrquf">
             <h9 class="my-0 mr-md-auto font-weight-normal">Welcome!</h9>&nbsp&nbsp&nbsp&nbsp<span th:text="${session.user.nick}" class="mx-1"></span><h9 class="mx-1">님</h9>
-            <button type="button" class="btn btn-outline-dark mb-2 mx-1" onclick="so()">My page</button>
+            <button type="button" class="btn btn-outline-dark mb-2 mx-1" onclick="gmp()">My page</button>
             <button type="button" class="btn btn-outline-dark mb-2" onclick="so()">Sign out</button>
         </form>
     </div>
@@ -153,6 +154,12 @@
                     window.location.href='/';
                 }
             });
+        }
+
+        function gmp(){
+            $("#mpf").attr("action","/adm/gmp");
+            $("#mpf").submit();
+
         }
     </script>
 </body>

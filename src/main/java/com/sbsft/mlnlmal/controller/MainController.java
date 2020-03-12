@@ -43,7 +43,7 @@ public class MainController {
     @CrossOrigin
     @GetMapping("/{surl}")
     public String redirect(@PathVariable("surl") String surl, Model model){
-        surlService.getOriginUrl(surl,model);
+        //surlService.getOriginUrl(surl,model);
         return "redirect:"+surlService.getOriginUrl(surl,model);
     }
 

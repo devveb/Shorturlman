@@ -151,15 +151,16 @@ public class ShortUrlService {
             return su;
         }
 
-        for(ShortUrl ban : banList){
-            if(su.getOriginUrl().contains(ban.getDomain())){
-                surlMapper.insertBanTryList(su);
-                su.setMessage(ban.getReason());
-                su.setCode(508);
-                return su;
+        if(su.getUidx() == 0){
+            for(ShortUrl ban : banList){
+                if(su.getOriginUrl().contains(ban.getDomain())){
+                    surlMapper.insertBanTryList(su);
+                    su.setMessage(ban.getReason());
+                    su.setCode(508);
+                    return su;
+                }
             }
         }
-
 
         su.setOriginUrl(su.getOriginUrl());
 
@@ -206,15 +207,16 @@ public class ShortUrlService {
 
     public String getOriginUrl(String surl, Model model) {
 
+        int nonloginLimitation = 128;
         UrlUser uu = new UrlUser();
 
         uu.setIdx(getUrlIdx(surl));
         uu = surlMapper.getOriginUrl(uu);
-        
-        if(uu != null && uu.getUidx() == 0 && uu.getHitCnt() > 128){
+
+        if(uu != null && uu.getUidx() == 0 && uu.getHitCnt() > nonloginLimitation){
             surlMapper.writeTryLog(surl);
             return "/lmt";
-        }else if(uu != null && uu.getUidx() != 0){
+        }else if((uu != null && uu.getUidx() == 0 && uu.getHitCnt() <= nonloginLimitation)||(uu != null && uu.getUidx() != 0)){
             surlMapper.writeRedirectionLog(uu);
             return uu.getOriginUrl();
         }else{

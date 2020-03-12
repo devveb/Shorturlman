@@ -46,4 +46,6 @@ public interface ShortUrlMapper {
     List<ShortUrl> getUrlListByUser(int userIdx);
 
     HashMap<String, Object> getLinkStatByUser(int userIdx);
+
+    ShortUrl getLastRedirectLink();
 }

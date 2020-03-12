@@ -76,5 +76,12 @@ public class ApiController {
         return "redirect:/";
     }
 
+    @CrossOrigin
+    @GetMapping("/glstrdlnk")
+    @ResponseBody
+    public ShortUrl getLastRedirectLink(HttpServletRequest req){
+        return surlService.getLastRedirectLink();
+    }
+
 
 }

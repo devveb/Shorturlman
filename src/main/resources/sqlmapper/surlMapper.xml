@@ -102,5 +102,13 @@
         and short_url is not null
     </select>
 
+    <select id="getLastRedirectLink" resultType="ShortUrl">
+    select
+        origin_url as originUrl
+        ,short_url as shortUrl
+    from short_url
+    where idx =  (select url_idx from short_url_redirectin_log order by redirection_time desc limit 1)
+    </select>
+
 
 </mapper>

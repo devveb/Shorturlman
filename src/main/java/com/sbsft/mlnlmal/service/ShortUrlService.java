@@ -306,4 +306,19 @@ public class ShortUrlService {
         model.addAttribute("linkStat",linkStat);
 
     }
+
+    public ShortUrl getLastRedirectLink() {
+        ShortUrl url = null;
+        try{
+            url=surlMapper.getLastRedirectLink();
+            url.setCode(200);
+        }catch (Exception e){
+            e.printStackTrace();
+            url.setCode(999);
+            url.setMessage(e.getMessage());
+            url.setShortUrl("Ask Admin");
+        }
+
+        return url;
+    }
 }

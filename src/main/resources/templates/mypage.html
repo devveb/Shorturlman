@@ -100,15 +100,19 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Link</th>
-                            <th>등록일/RegDate</th>
-                            <th>클릭수/Redirect</th>
+                            <th>Short Link</th>
+                            <th>Origin Link</th>
+                            <th>등록일</th>
+                            <th>클릭수</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="list,index : ${urlList}">
                             <td th:text="${index.index+1}"></td>
                             <td th:text="${list.shortUrl}"></td>
+                            <td>
+                                <a th:href="${list.originUrl}" target="_blank" th:text="${list.originUrl}"></a>
+                            </td>
                             <td th:text="${list.regDate}">ipsum</td>
                             <td th:text="${list.hitCnt}">dolor</td>
                         </tr>
@@ -155,6 +159,8 @@
                 }
             });
         }
+
+
 
         function gmp(){
             $("#mpf").attr("action","/adm/gmp");

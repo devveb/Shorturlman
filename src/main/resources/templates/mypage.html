@@ -79,16 +79,22 @@
                     <h1 class="h2">Dashboard</h1>
                 </div>
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-                    <div class="card" style="width: 50%;">
+                    <div class="card" style="width: 33%;">
                         <div class="card-body">
                             <h5 class="card-title">링크수/Links</h5>
                             <p class="card-text" style="font-size: xx-large"><span th:text="${linkStat.cnt}"></span>개.</p>
                         </div>
                     </div>
-                    <div class="card" style="width: 50%; display: inline;">
+                    <div class="card" style="width: 33%; display: inline;">
                         <div class="card-body">
                             <h5 class="card-title">클릭수/Redirect</h5>
                             <p class="card-text" style="font-size: xx-large"><span th:text="${linkStat.summ}"></span>회.</p>
+                        </div>
+                    </div>
+                    <div class="card" style="width: 33%; display: inline;">
+                        <div class="card-body">
+                            <iframe src="https://coupa.ng/bHZMtK" width="120" height="240" frameborder="0" scrolling="no"></iframe>
+                            <iframe src="https://coupa.ng/bHZNk6" width="120" height="240" frameborder="0" scrolling="no"></iframe>
                         </div>
                     </div>
                 </div>

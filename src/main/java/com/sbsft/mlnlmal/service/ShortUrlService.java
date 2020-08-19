@@ -185,12 +185,16 @@ public class ShortUrlService {
     private String shrinkUrl(int idx){
         //10진번 인덱스를 52진법으로
         String str = "";
+        String sufix = "http://mlnlmal.ml/";
 
         while (idx >= list.size()) {
             str = list.get(idx % list.size()) + str;
             idx = idx / list.size();
         }
-        return "http://mlnlmal.ml/"+list.get(idx) + str;
+
+        if(idx%2 == 0) sufix = "http://mlni.ml";
+
+        return sufix+list.get(idx) + str;
     }
 
     private int getUrlIdx(String surl){

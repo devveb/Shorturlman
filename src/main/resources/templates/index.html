@@ -40,6 +40,7 @@
             vertical-align: middle;
         }
     </style>
+
     <div class="d-flex flex-column flex-md-row align-items-center p-2 px-md-4 bg-white border-bottom shadow-sm">
         <h5 class="my-0 mr-md-auto font-weight-normal" onclick="window.location.href='/'">mlni.ml</h5>
         <nav class="my-2 my-md-0 mr-md-3">
@@ -55,13 +56,15 @@
                 <input type="password" class="form-control" id="inputPassword" placeholder="password" name="nwebvie">
             </div>
             <button type="button" class="btn btn-outline-dark mb-2 mx-1" onclick="sgnin()">Sign in</button>
-            <button type="button" class="btn btn-outline-dark mb-2" onclick="window.location.href = '/signup';">Sign up</button>
+            <button type="button" class="btn btn-outline-dark mb-2 mx-1" onclick="window.location.href = '/signup';">Sign up</button>
+            <button type="button" class="btn btn-outline-dark mb-2" target="_blank" onclick="location.href='https://www.buymeacoffee.com/devveb'">Help me!</button>
         </form>
         <form class="form-inline" th:if="${session.size() > 0}" id="mpf" method="post">
             <input type="hidden" th:value="${session.user.uidx}" name="dbwjdkdlel" id="rodlstlrquf">
             <h9 class="my-0 mr-md-auto font-weight-normal">Welcome!</h9>&nbsp&nbsp&nbsp&nbsp<span th:text="${session.user.nick}" class="mx-1"></span><h9 class="mx-1">님</h9>
             <button type="button" class="btn btn-outline-dark mb-2 mx-1" onclick="gmp()">My page</button>
-            <button type="button" class="btn btn-outline-dark mb-2" onclick="so()">Sign out</button>
+            <button type="button" class="btn btn-outline-dark mb-2 mx-1" onclick="so()">Sign out</button>
+            <button type="button" class="btn btn-outline-dark mb-2" target="_blank" onclick="location.href='https://www.buymeacoffee.com/devveb'">Help me!</button>
         </form>
     </div>
 
@@ -153,28 +156,28 @@
 <!--                        <p class="lead mb-0">Unlimited redirect 가능</p>-->
 <!--                    </div>-->
 <!--                </div>-->
-                <div class="">
-                    <div class="features-icons-item mx-auto mb-0 mb-lg-3">
-                        <a href="/signup">
-                            <div class="features-icons-icon d-flex">
-                                <i class="icon-login m-auto text-primary"></i>
-                            </div>
-                        </a>
-                        <h3>회원 가입</h3>
-                        <p class="lead mb-0"><a href="/signup" target="_blank">Sign up!</a></p>
-                    </div>
-                </div>
-                <div class="">
-                    <div class="features-icons-item mx-auto mb-0 mb-lg-3">
+<!--                <div class="col-sm-6">-->
+<!--                    <div class="features-icons-item mx-auto mb-0 mb-sm-3">-->
+<!--                        <a href="/signup">-->
+<!--                            <div class="features-icons-icon d-flex">-->
+<!--                                <i class="icon-login m-auto text-primary"></i>-->
+<!--                            </div>-->
+<!--                        </a>-->
+<!--                        <h3>회원 가입</h3>-->
+<!--                        <p class="lead mb-0"><a href="/signup" target="_blank">Sign up!</a></p>-->
+<!--                    </div>-->
+<!--                </div>-->
+                <div class="col-sm-12">
+                    <div class="features-icons-item mx-auto mb-0 mb-sm-3">
                         <a href="http://mlnlmal.ml/bYF" target="_blank">
                             <div class="features-icons-icon d-flex">
                                 <i class="icon-control-play m-auto text-primary"></i>
                             </div>
                         </a>
-                        <h3>How to use</h3>
-                        <p class="lead mb-0"><a href="http://mlnlmal.ml/bYF" target="_blank">Watch it!</a></p>
+                        <p class="lead mb-0"><a href="http://mlnlmal.ml/bYF" target="_blank">How to use it?</a></p>
                     </div>
                 </div>
+
             </div>
 
     </section>

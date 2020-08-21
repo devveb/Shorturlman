@@ -145,8 +145,8 @@ public class ShortUrlService {
             return su;
         }
 
-        if (su.getOriginUrl().contains("http://mlnlmal.ml") ||su.getOriginUrl().contains("mlnlmal.ml")||su.getOriginUrl().equals("")){
-            su.setMessage("'mlnlmal.ml'은 URL에 포함될 수 없습니다.");
+        if (su.getOriginUrl().contains("mlni.ml") ||su.getOriginUrl().contains("http://mlni.ml") ||su.getOriginUrl().contains("http://mlnlmal.ml")|| su.getOriginUrl().contains("http://mlnlmal.ml") ||su.getOriginUrl().equals("")){
+            su.setMessage("'mlnlmal.ml/mlni.ml'은 URL에 포함될 수 없습니다.");
             su.setCode(507);
             return su;
         }
@@ -185,16 +185,18 @@ public class ShortUrlService {
     private String shrinkUrl(int idx){
         //10진번 인덱스를 52진법으로
         String str = "";
-        String sufix = "http://mlnlmal.ml/";
+        String suffix = "http://mlnlmal.ml/";
+
+        if (idx % 2 != 0) {
+            suffix = "http://mlni.ml/";
+        }
 
         while (idx >= list.size()) {
             str = list.get(idx % list.size()) + str;
             idx = idx / list.size();
         }
 
-        if(idx%2 == 0) sufix = "http://mlni.ml";
-
-        return sufix+list.get(idx) + str;
+        return suffix+list.get(idx) + str;
     }
 
     private int getUrlIdx(String surl){

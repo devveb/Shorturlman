@@ -6,7 +6,7 @@ plugins {
 apply plugin: 'io.spring.dependency-management'
 
 group = 'com.sbsft'
-version = 'M.2.0.3'
+version = 'M.2.0.4'
 sourceCompatibility = '1.8'
 
 configurations {

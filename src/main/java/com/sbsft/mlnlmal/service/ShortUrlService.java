@@ -220,13 +220,13 @@ public class ShortUrlService {
         uu = surlMapper.getOriginUrl(uu);
 
         if(uu != null && uu.getUidx() == 0 && uu.getHitCnt() > nonloginLimitation){
-            surlMapper.writeTryLog(surl);
+            //surlMapper.writeTryLog(surl);
             return "/lmt";
         }else if((uu != null && uu.getUidx() == 0 && uu.getHitCnt() <= nonloginLimitation)||(uu != null && uu.getUidx() != 0)){
             surlMapper.writeRedirectionLog(uu);
             return uu.getOriginUrl();
         }else{
-            surlMapper.writeTryLog(surl);
+            //surlMapper.writeTryLog(surl);
             return "/notfound";
         }
     }

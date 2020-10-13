@@ -47,7 +47,7 @@ public class ShortUrlService {
         uu.setOriginUrl(origin);
         uu.setChannel(req.getParameter("v"));
         uu = shinkProcess(uu,banList);
-        if(req.getParameter("s").equals("1")) linkShareProcess(uu);
+//        if(req.getParameter("s").equals("1")) linkShareProcess(uu);
         return uu;
     }
 
@@ -73,9 +73,9 @@ public class ShortUrlService {
                         uu = shinkProcess(uu,banList);
                         uuList.add(uu);
 
-                        if(req.getParameter("s").equals("1"))
-                            linkShareProcess(uu);
-                    }
+//                        if(req.getParameter("s").equals("1"))
+//                            linkShareProcess(uu);
+                        }
                 }else{
                     if(user == null){
                         uu.setUidx(0);
@@ -88,47 +88,47 @@ public class ShortUrlService {
                     uu = shinkProcess(uu,banList);
                     uuList.add(uu);
 
-                    if(req.getParameter("s").equals("1"))
-                        linkShareProcess(uu);
+//                    if(req.getParameter("s").equals("1"))
+//                        linkShareProcess(uu);
                 }
         }
         return uuList;
 
     }
 
-    private UrlUser banProcess(UrlUser uu, List<ShortUrl> banList) {
-        for(ShortUrl banDom : banList){
-            if(uu.getOriginUrl().contains(banDom.getDomain())) {
-                uu.setBan(false);
-            }
-        }
-        return uu;
-    }
+//    private UrlUser banProcess(UrlUser uu, List<ShortUrl> banList) {
+//        for(ShortUrl banDom : banList){
+//            if(uu.getOriginUrl().contains(banDom.getDomain())) {
+//                uu.setBan(false);
+//            }
+//        }
+//        return uu;
+//    }
 
-    private void linkShareProcess(ShortUrl uu) {
-
-        Ourlink ourlink = new Ourlink();
-        ourlink.setLinkIdx(uu.getIdx());
-
-        Document doc = null;
-        try {
-            doc = Jsoup.connect(uu.getOriginUrl()).get();
-            Elements metaOgDesc = doc.select("meta[og:description]");
-
-            if(doc.title() != ""){
-                ourlink.setTitle(doc.title());
-            }else{
-                ourlink.setTitle("Pandora Box(Unknown)");
-            }
-            ourlink.setDesc(metaOgDesc.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-            ourlink.setTitle("Untitle");
-            ourlink.setDesc("Unknown");
-        }
-
-        surlMapper.insertLinkShareInfo(ourlink);
-    }
+//    private void linkShareProcess(ShortUrl uu) {
+//
+//        Ourlink ourlink = new Ourlink();
+//        ourlink.setLinkIdx(uu.getIdx());
+//
+//        Document doc = null;
+//        try {
+//            doc = Jsoup.connect(uu.getOriginUrl()).get();
+//            Elements metaOgDesc = doc.select("meta[og:description]");
+//
+//            if(doc.title() != ""){
+//                ourlink.setTitle(doc.title());
+//            }else{
+//                ourlink.setTitle("Pandora Box(Unknown)");
+//            }
+//            ourlink.setDesc(metaOgDesc.toString());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            ourlink.setTitle("Untitle");
+//            ourlink.setDesc("Unknown");
+//        }
+//
+//        surlMapper.insertLinkShareInfo(ourlink);
+//    }
 
     private String[] urlSeparator(HttpServletRequest req) {
         String urls = req.getParameter("murl").trim().replace("\n",",");
@@ -242,7 +242,7 @@ public class ShortUrlService {
     }
 
     public int registUser(HttpServletRequest req) {
-        System.out.println(req.getParameterNames());
+
         UrlUser uu = new UrlUser();
         int code = 999;
 

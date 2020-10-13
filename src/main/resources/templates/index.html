@@ -91,12 +91,12 @@
                 </div>
                 <div class="col-xl-9 mx-auto">
                     <div class="row">
-                        <div class="col-3" >
-                            <button class="btn btn-block btn-lg btn-outline-light" id="shrbtn" onclick="shareAll()" type="button">
-                                Shy...
-                            </button>
-                        </div>
-                        <div class="col-4" >
+<!--                        <div class="col-3" >-->
+<!--                            <button class="btn btn-block btn-lg btn-outline-light" id="shrbtn" onclick="shareAll()" type="button">-->
+<!--                                Shy...-->
+<!--                            </button>-->
+<!--                        </div>-->
+                        <div class="col-7" >
                             <button class="btn btn-block btn-lg btn-outline-light" onclick="shrinkAll()" type="button">
                                 Short!
                             </button>
@@ -106,7 +106,7 @@
 <!--                                Links#-->
 <!--                            </button>-->
 <!--                        </div>-->
-                        <div class="col-3">
+                        <div class="col-5">
                             <button class="btn btn-block btn-lg btn-outline-light" onclick="goToPlugin();" type="button" title="get plug-in">
                                 Add+
                             </button>
@@ -114,12 +114,12 @@
                     </div>
                 </div>
 
-                <div class="col-xl-9 mx-auto" style="margin-top: 15px;">
-                    <h4 class="jumbo" id="linkcnt" style="display: inline;"></h4>
-                    <h4 style="display: inline;">&nbsp&nbsp&nbsp&nbsp</h4>
-                    <h4 class="jumbo" id="clkcnt" style="display: inline;"></h4>
+<!--                <div class="col-xl-9 mx-auto" style="margin-top: 15px;">-->
+<!--                    <h4 class="jumbo" id="linkcnt" style="display: inline;"></h4>-->
+<!--                    <h4 style="display: inline;">&nbsp&nbsp&nbsp&nbsp</h4>-->
+<!--                    <h4 class="jumbo" id="clkcnt" style="display: inline;"></h4>-->
 <!--                    <p id="lstlnk"><h4 class="jumbo" style="display: inline;"></h4></p>-->
-                </div>
+<!--                </div>-->
             </div>
 
         </div>
@@ -203,7 +203,7 @@
                             <a href="/notice" target="_blank">Notice</a>
                         </li>
                     </ul>
-                    <p class="text-muted small mb-4 mb-lg-0">&copy; mlnlmal.ml 2020.</p>
+                    <p class="text-muted small mb-4 mb-lg-0">&copy; mlni.ml 2020.</p>
                 </div>
             </div>
         </div>
@@ -214,33 +214,33 @@
         var shareFlag = 0;
         $(function() {
 
-            counting("/api/cntrd",' clicks!',9,'clkcnt');
-            counting("/api/cntlink",' links!',3,'linkcnt');
-            lstlnk();
-            setInterval(function() {counting("/api/cntlink",' links!',3,'linkcnt')}, 24 * 1000);
-            setInterval(function() {counting("/api/cntrd",' clicks!',3,'clkcnt')}, 24 * 1000);
-            setInterval(lstlnk,3*1000);
+            // counting("/api/cntrd",' clicks!',9,'clkcnt');
+            // counting("/api/cntlink",' links!',3,'linkcnt');
+            // lstlnk();
+            // setInterval(function() {counting("/api/cntlink",' links!',3,'linkcnt')}, 24 * 1000);
+            // setInterval(function() {counting("/api/cntrd",' clicks!',3,'clkcnt')}, 24 * 1000);
+            // setInterval(lstlnk,3*1000);
             
         });
 
-        function counting(apiurl,suffixtxt,interv,divnm){
-            jQuery.ajaxSetup({async:false});
-            $.get(apiurl, function(result) {
-
-                if (result.code == 200) {
-                    const options = {
-                        duration: interv,
-                        suffix: suffixtxt
-                    };
-                    let demo = new CountUp(divnm, result.count, options);
-                    if (!demo.error) {
-                        demo.start();
-                    }
-                } else {
-                    alert("관리자에게 문의하세요.");
-                }
-            });
-        }
+        // function counting(apiurl,suffixtxt,interv,divnm){
+        //     jQuery.ajaxSetup({async:false});
+        //     $.get(apiurl, function(result) {
+        //
+        //         if (result.code == 200) {
+        //             const options = {
+        //                 duration: interv,
+        //                 suffix: suffixtxt
+        //             };
+        //             let demo = new CountUp(divnm, result.count, options);
+        //             if (!demo.error) {
+        //                 demo.start();
+        //             }
+        //         } else {
+        //             alert("관리자에게 문의하세요.");
+        //         }
+        //     });
+        // }
 
         $("#dis").keydown(function (key) {
             if (key.keyCode == 13) {
@@ -249,9 +249,9 @@
             }
         });
 
-        function goToOurlink(){
-            window.open('http://ourlin.gq/');
-        }
+        // function goToOurlink(){
+        //     window.open('http://ourlin.gq/');
+        // }
         
         function goToPlugin() {
             console.log(navigator.userAgent);
@@ -287,16 +287,16 @@
 
         }
 
-        function shareAll() {
-            if(shareFlag == 0){
-                shareFlag = 1;
-                $("#shrbtn").text('Share...');
-            }else if(shareFlag == 1){
-                shareFlag = 0;
-                $("#shrbtn").text('Shy...');
-            }
-
-        }
+        // function shareAll() {
+        //     if(shareFlag == 0){
+        //         shareFlag = 1;
+        //         $("#shrbtn").text('Share...');
+        //     }else if(shareFlag == 1){
+        //         shareFlag = 0;
+        //         $("#shrbtn").text('Shy...');
+        //     }
+        //
+        // }
 
 
         function shrinkAll() {
@@ -313,8 +313,8 @@
                 });
                 $("#shortUrlList").val(olist);
             });
-            counting("/api/cntrd",' clicks!',9,'clkcnt');
-            counting("/api/cntlink",' links!',3,'linkcnt');
+            // counting("/api/cntrd",' clicks!',9,'clkcnt');
+            // counting("/api/cntlink",' links!',3,'linkcnt');
 
         }
 
